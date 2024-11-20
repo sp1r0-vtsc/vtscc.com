@@ -1,0 +1,80 @@
+---
+const projects = [
+	{
+		title: 'DaiLai',
+		url: 'http://dailai.io/',
+		description: 'Peer to Peer Microtransport Listing Services'
+	},
+	{
+		title: '0ffl1ne',
+		url: 'http://www.freshpatents.com/-dt20160728ptan20160218873.php',
+		description: 'Patent pending, prototype offline data diode system controller for secure cryptographic storage and access.'
+	},
+	{
+		title: '2crow',
+		url: 'http://2crow.org/',
+		description: 'A 2 party escrow system for bitcoin.'
+	},
+	{
+		title: 'Noomer',
+		url: 'http://noomer.io/',
+		description: 'Wiki based Numeraire and price provider'
+	},
+	{
+		title: 'Woodcoin.Info',
+		url: 'http://woodcoin.info/',
+		description: 'Woodcoin [LOG] network information'
+	},
+	{
+		title: 'Woodcoin.Org',
+		url: 'http://woodcoin.org/',
+		description: 'An experimental digital ledger'
+	}
+];
+---
+
+<aside class="side-panel" id="sidePanel">
+	<div class="side-panel-toggle" id="sidePanelToggle">
+		<span class="sr-only">Toggle navigation panel</span>
+		<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+			<polyline points="9 18 15 12 9 6"></polyline>
+		</svg>
+	</div>
+	<div class="side-panel-content">
+		<h3 class="text-xl font-bold mb-4">Project Navigation</h3>
+		<ul class="project-list">
+			{projects.map(project => (
+				<li>
+					<a href={project.url} target="_blank" rel="noopener noreferrer">
+						{project.title}
+					</a>
+					<p>{project.description}</p>
+				</li>
+			))}
+			<li class="mt-8">
+				<a href="https://www.youtube.com/watch?v=qkJ04pBSxB4" target="_blank" rel="noopener noreferrer">
+					Internet Security: Myth or Legend?
+				</a>
+				<p>Featured secure computing video</p>
+			</li>
+		</ul>
+	</div>
+</aside>
+
+<script>
+	const panel = document.getElementById('sidePanel');
+	const toggle = document.getElementById('sidePanelToggle');
+
+	if (panel && toggle) {
+		toggle.addEventListener('click', () => {
+			panel.classList.toggle('active');
+		});
+
+		// Close panel when clicking outside
+		document.addEventListener('click', (e) => {
+			if (!panel.contains(e.target) && panel.classList.contains('active')) {
+				panel.classList.remove('active');
+			}
+		});
+	}
+</script>
