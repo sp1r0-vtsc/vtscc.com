@@ -1,0 +1,83 @@
+---
+import BaseHead from '../components/BaseHead.astro';
+import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
+import ProjectCard from '../components/ProjectCard.astro';
+import { SITE_TITLE } from '../consts';
+
+const projects = [
+	{
+		title: 'DaiLai',
+		url: 'http://dailai.io/',
+		description: 'Peer to Peer Microtransport Listing Services'
+	},
+	{
+		title: '0ffl1ne',
+		url: 'http://www.freshpatents.com/-dt20160728ptan20160218873.php',
+		description: 'Patent pending, prototype offline data diode system controller for secure cryptographic storage and access.'
+	},
+	{
+		title: '2crow',
+		url: 'http://2crow.org/',
+		description: 'A 2 party escrow system for bitcoin.'
+	},
+	{
+		title: 'Noomer',
+		url: 'http://noomer.io/',
+		description: 'Wiki based Numeraire and price provider'
+	},
+	{
+		title: 'Woodcoin.Info',
+		url: 'http://woodcoin.info/',
+		description: 'Woodcoin [LOG] network information'
+	},
+	{
+		title: 'Woodcoin.Org',
+		url: 'http://woodcoin.org/',
+		description: 'An experimental digital ledger'
+	}
+];
+---
+
+<!doctype html>
+<html lang="en">
+	<head>
+		<BaseHead 
+			title={`Projects - ${SITE_TITLE}`} 
+			description="Explore our innovative projects in secure computing, blockchain, and digital systems."
+		/>
+	</head>
+	<body>
+		<Header />
+		<main class="px-4 py-12 max-w-6xl mx-auto">
+			<div class="mb-12">
+				<h1 class="text-4xl font-bold mb-4">Projects</h1>
+				<p class="text-xl text-gray-600 italic">
+					A green mountain state machine<br>
+					where Ethan Allen meets Claude Shannon
+				</p>
+			</div>
+
+			<div class="grid md:grid-cols-2 gap-8">
+				{projects.map(project => (
+					<ProjectCard {...project} />
+				))}
+			</div>
+
+			<div class="mt-16">
+				<h2 class="text-2xl font-semibold mb-6">Featured Content</h2>
+				<div class="bg-gray-50 p-6 rounded-lg">
+					<h3 class="font-semibold mb-2">Pinned secure computing video:</h3>
+					<a 
+						href="https://www.youtube.com/watch?v=qkJ04pBSxB4" 
+						target="_blank"
+						class="text-blue-600 hover:text-blue-800"
+					>
+						Internet Security: Myth or Legend?
+					</a>
+				</div>
+			</div>
+		</main>
+		<Footer />
+	</body>
+</html>

@@ -1,0 +1,46 @@
+---
+import BaseHead from '../components/BaseHead.astro';
+import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
+import { SITE_TITLE, COMPANY_EMAIL } from '../consts';
+---
+
+<!doctype html>
+<html lang="en">
+	<head>
+		<BaseHead 
+			title={`Join Us - ${SITE_TITLE}`} 
+			description="Join Vermont Secure Computing Consultancy and be part of our innovative team."
+		/>
+	</head>
+	<body>
+		<Header />
+		<main class="px-4 py-12 max-w-4xl mx-auto">
+			<h1 class="text-4xl font-bold mb-8">Join Our Team</h1>
+			
+			<div class="bg-white shadow-lg rounded-lg p-8">
+				<h2 class="text-2xl font-semibold mb-6">Career Opportunities</h2>
+				<div class="prose prose-lg">
+					<p>
+						We have exciting opportunities for talented individuals who are passionate about secure computing 
+						and technology innovation. Current openings include positions for:
+					</p>
+					<ul>
+						<li>Partners</li>
+						<li>Junior Developers</li>
+						<li>Senior Developers</li>
+						<li>Project Managers</li>
+					</ul>
+					<div class="mt-8">
+						<h3 class="text-xl font-semibold mb-4">How to Apply</h3>
+						<p>
+							Contact us at <span class="font-mono">{COMPANY_EMAIL}</span> to learn more about our 
+							current opportunities and application process.
+						</p>
+					</div>
+				</div>
+			</div>
+		</main>
+		<Footer />
+	</body>
+</html>

@@ -1,0 +1,48 @@
+---
+import BaseHead from '../components/BaseHead.astro';
+import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
+import { SITE_TITLE } from '../consts';
+---
+
+<!doctype html>
+<html lang="en">
+	<head>
+		<BaseHead 
+			title={`About Us - ${SITE_TITLE}`} 
+			description="Learn about Vermont Secure Computing Consultancy and our mission in secure computing solutions."
+		/>
+	</head>
+	<body>
+		<Header />
+		<main class="px-4 py-12 max-w-4xl mx-auto">
+			<div class="flex flex-col md:flex-row items-start gap-8">
+				<img 
+					src="/vtsc-background.jpeg" 
+					alt="VSCC Logo" 
+					class="w-32 md:w-48 mb-6 md:mb-0"
+				/>
+				<div>
+					<h1 class="text-4xl font-bold mb-8">About Us</h1>
+					<div class="prose prose-lg">
+						<p>
+							Vermont Secure Computing Consultancy is a leading provider of secure computing solutions 
+							and technology consulting services. Our team combines deep technical expertise with 
+							a commitment to privacy and security.
+						</p>
+						<h2>Our Expertise</h2>
+						<ul>
+							<li>Secure Computing Systems</li>
+							<li>Network Security Reviews</li>
+							<li>Payment Interface Systems</li>
+							<li>Web Application Development</li>
+							<li>Blockchain Technology</li>
+							<li>Security Audits</li>
+						</ul>
+					</div>
+				</div>
+			</div>
+		</main>
+		<Footer />
+	</body>
+</html>
