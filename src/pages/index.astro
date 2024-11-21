@@ -2,6 +2,10 @@
 import BaseHead from '../components/BaseHead.astro';
 import Header from '../components/Header.astro';
 import Footer from '../components/Footer.astro';
+<<<<<<< HEAD
+=======
+import SidePanel from '../components/SidePanel.astro';
+>>>>>>> dev-in-progress/main
 import { SITE_TITLE, SITE_DESCRIPTION } from '../consts';
 import '../styles/animations.css';
 ---
@@ -11,11 +15,19 @@ import '../styles/animations.css';
   <head>
     <BaseHead title={SITE_TITLE} description={SITE_DESCRIPTION} />
   </head>
+<<<<<<< HEAD
   <body class="relative min-h-screen">
     <!-- Background Image -->
     <div class="fixed inset-0 z-[-1]">
       <img 
         src="/vtsc-background.jpeg" 
+=======
+  <body>
+    <!-- Background Image -->
+    <div class="fixed inset-0 z-[-1]">
+      <img 
+        src="/vtsc-background.jpg" 
+>>>>>>> dev-in-progress/main
         alt="Background" 
         class="w-full h-full object-cover animate-fade"
       />
@@ -23,12 +35,20 @@ import '../styles/animations.css';
     </div>
 
     <Header />
+<<<<<<< HEAD
+=======
+    <SidePanel />
+>>>>>>> dev-in-progress/main
     
     <main class="px-4 py-12">
       <div class="max-w-4xl mx-auto">
         <div class="flex flex-col md:flex-row items-center gap-8 mb-12">
           <img 
+<<<<<<< HEAD
             src="/vtsc-background.jpeg" 
+=======
+            src="/vtsc-background.jpg" 
+>>>>>>> dev-in-progress/main
             alt="VSCC Tree Logo" 
             class="w-48 md:w-64 animate-spiral"
           />
