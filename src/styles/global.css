@@ -14,9 +14,6 @@
 	--gray-gradient: rgba(var(--gray-light), 50%), #fff;
 	--box-shadow: 0 2px 6px rgba(var(--gray), 25%), 0 8px 24px rgba(var(--gray), 33%),
 		0 16px 32px rgba(var(--gray), 33%);
-<<<<<<< HEAD
-}
-=======
 	--side-panel-width: 300px;
 }
 
@@ -98,7 +95,6 @@
 	color: rgb(var(--gray));
 }
 
->>>>>>> dev-in-progress/main
 @font-face {
 	font-family: 'Atkinson';
 	src: url('/fonts/atkinson-regular.woff') format('woff');
@@ -217,8 +213,6 @@ hr {
 	main {
 		padding: 1em;
 	}
-<<<<<<< HEAD
-=======
 	.side-panel {
 		width: 85vw;
 	}
@@ -231,7 +225,6 @@ hr {
 		right: -40px;
 		padding: 0.5rem;
 	}
->>>>>>> dev-in-progress/main
 }
 
 .sr-only {
@@ -242,20 +235,8 @@ hr {
 	height: 1px;
 	width: 1px;
 	overflow: hidden;
-<<<<<<< HEAD
-	/* IE6, IE7 - a 0 height clip, off to the bottom right of the visible 1px box */
-	clip: rect(1px 1px 1px 1px);
-	/* maybe deprecated but we need to support legacy browsers */
-	clip: rect(1px, 1px, 1px, 1px);
-	/* modern browsers, clip-path works inwards from each corner */
-	clip-path: inset(50%);
-	/* added line to stop words getting smushed together (as they go onto separate lines and some screen readers do not understand line feeds as a space */
-	white-space: nowrap;
-}
-=======
 	clip: rect(1px 1px 1px 1px);
 	clip: rect(1px, 1px, 1px, 1px);
 	clip-path: inset(50%);
 	white-space: nowrap;
 }
->>>>>>> dev-in-progress/main
