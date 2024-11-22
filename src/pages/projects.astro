@@ -3,9 +3,20 @@ import BaseHead from '../components/BaseHead.astro';
 import Header from '../components/Header.astro';
 import Footer from '../components/Footer.astro';
 import ProjectCard from '../components/ProjectCard.astro';
+import SidePanel from '../components/SidePanel.astro';
 import { SITE_TITLE } from '../consts';
 
 const projects = [
+	{
+		title: 'WLog Network',
+		url: 'https://wlog.network',
+		description: 'Decentralized logging and monitoring infrastructure'
+	},
+	{
+		title: 'DogPay',
+		url: 'https://dogpay.info',
+		description: 'Secure cryptocurrency payment processing system'
+	},
 	{
 		title: 'DaiLai',
 		url: 'http://dailai.io/',
@@ -14,27 +25,25 @@ const projects = [
 	{
 		title: '0ffl1ne',
 		url: 'http://www.freshpatents.com/-dt20160728ptan20160218873.php',
-		description: 'Patent pending, prototype offline data diode system controller for secure cryptographic storage and access.'
+		description: 'Patent pending offline data diode system'
+	}
+];
+
+const securityPlugins = [
+	{
+		title: 'uBlock Origin',
+		url: 'https://ublockorigin.com/',
+		description: 'Essential content blocker for a safer browsing experience'
 	},
 	{
-		title: '2crow',
-		url: 'http://2crow.org/',
-		description: 'A 2 party escrow system for bitcoin.'
+		title: 'HTTPS Everywhere',
+		url: 'https://www.eff.org/https-everywhere',
+		description: 'Encrypt your web communications by enforcing HTTPS'
 	},
 	{
-		title: 'Noomer',
-		url: 'http://noomer.io/',
-		description: 'Wiki based Numeraire and price provider'
-	},
-	{
-		title: 'Woodcoin.Info',
-		url: 'http://woodcoin.info/',
-		description: 'Woodcoin [LOG] network information'
-	},
-	{
-		title: 'Woodcoin.Org',
-		url: 'http://woodcoin.org/',
-		description: 'An experimental digital ledger'
+		title: 'Privacy Badger',
+		url: 'https://privacybadger.org/',
+		description: 'Stops advertisers and trackers from secretly tracking where you go'
 	}
 ];
 ---
@@ -43,40 +52,67 @@ const projects = [
 <html lang="en">
 	<head>
 		<BaseHead 
-			title={`Projects - ${SITE_TITLE}`} 
-			description="Explore our innovative projects in secure computing, blockchain, and digital systems."
+			title={`Curated Applications - ${SITE_TITLE}`} 
+			description="Staff-recommended secure computing applications and browser security tools"
 		/>
 	</head>
 	<body>
 		<Header />
+		<SidePanel />
 		<main class="px-4 py-12 max-w-6xl mx-auto">
 			<div class="mb-12">
-				<h1 class="text-4xl font-bold mb-4">Projects</h1>
-				<p class="text-xl text-gray-600 italic">
-					A green mountain state machine<br>
-					where Ethan Allen meets Claude Shannon
+				<h1 class="text-4xl font-bold mb-4">Green Mountain Apps</h1>
+				<p class="text-xl text-gray-600">
+					A curated collection of Vermont-vetted applications and security tools,
+					hand-picked by our research staff for their excellence in secure computing.
 				</p>
 			</div>
 
-			<div class="grid md:grid-cols-2 gap-8">
-				{projects.map(project => (
-					<ProjectCard {...project} />
-				))}
-			</div>
+			<section class="mb-16">
+				<h2 class="text-2xl font-semibold mb-6">Featured Applications</h2>
+				<div class="grid md:grid-cols-2 gap-8">
+					{projects.map(project => (
+						<ProjectCard {...project} />
+					))}
+				</div>
+			</section>
 
-			<div class="mt-16">
-				<h2 class="text-2xl font-semibold mb-6">Featured Content</h2>
-				<div class="bg-gray-50 p-6 rounded-lg">
-					<h3 class="font-semibold mb-2">Pinned secure computing video:</h3>
+			<section class="mb-16">
+				<h2 class="text-2xl font-semibold mb-6">Recommended Security Plugins</h2>
+				<div class="bg-gray-50 p-6 rounded-lg mb-4">
+					<p class="text-gray-700 italic">
+						Essential browser extensions for maintaining privacy and security while navigating the modern web.
+					</p>
+				</div>
+				<div class="grid md:grid-cols-3 gap-6">
+					{securityPlugins.map(plugin => (
+						<div class="bg-white p-6 rounded-lg shadow-md hover:shadow-lg transition-shadow">
+							<h3 class="text-lg font-semibold mb-2">
+								<a href={plugin.url} target="_blank" rel="noopener noreferrer" 
+									class="text-accent hover:text-accent-dark">
+									{plugin.title}
+								</a>
+							</h3>
+							<p class="text-gray-600 text-sm">{plugin.description}</p>
+						</div>
+					))}
+				</div>
+			</section>
+
+			<section>
+				<div class="bg-blue-50 border-l-4 border-blue-400 p-6 rounded-lg">
+					<h2 class="text-xl font-semibold mb-2">Featured Content</h2>
+					<p class="text-gray-700 mb-4">Deep dive into internet security fundamentals:</p>
 					<a 
 						href="https://www.youtube.com/watch?v=qkJ04pBSxB4" 
 						target="_blank"
-						class="text-blue-600 hover:text-blue-800"
+						rel="noopener noreferrer"
+						class="text-blue-600 hover:text-blue-800 font-medium"
 					>
-						Internet Security: Myth or Legend?
+						Internet Security: Myth or Legend? →
 					</a>
 				</div>
-			</div>
+			</section>
 		</main>
 		<Footer />
 	</body>
