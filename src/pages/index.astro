@@ -12,12 +12,14 @@ import '../styles/animations.css';
   <head>
     <BaseHead title={SITE_TITLE} description={SITE_DESCRIPTION} />
   </head>
-  <body class="relative min-h-screen">
+  <body>
     <!-- Background Image -->
+    <div class="fixed inset-0 z-[-1]">
       <img 
         src="/vtsc-background.jpg" 
         alt="Background" 
         class="w-full h-full object-cover animate-fade"
+      />
       <div class="absolute inset-0 bg-black/5"></div>
     </div>
 
@@ -25,28 +27,38 @@ import '../styles/animations.css';
     <SidePanel />
     
     <main class="px-4 py-12">
-      <div class="max-w-4xl mx-auto">
+      <div class="max-w-6xl mx-auto">
         <div class="flex flex-col md:flex-row items-center gap-8 mb-12">
           <img 
-            src="/vtsc-background.jpeg" 
+            src="/vtsc-background.jpg" 
+            alt="VSCC Tree Logo" 
             class="w-48 md:w-64 animate-spiral"
           />
           <div>
             <h1 class="text-4xl font-bold mb-4">{SITE_TITLE}</h1>
             <h2 class="text-2xl text-gray-600 mb-8">Research Division</h2>
             
-            <div class="prose prose-lg">
-              <h3 class="text-xl font-semibold mb-4">Our Mission</h3>
-              <p class="mb-4">
-                VTSCC is a computing services and technology consultancy. Our engineers have vast 
-                experience with building websites, apps, and managing secure computing and payment 
-                interface systems.
+            <div class="prose prose-lg max-w-4xl">
+              <p class="mb-6">
+                VTSCC is a pioneering computing services and technology consultancy with deep roots in blockchain security and payment systems. Since 2012, our journey began with intensive research into private key management and secure wallet architectures - lessons learned in the wake of historic breaches like MtGox that shaped our commitment to building better, more secure financial technology.
               </p>
-              <p class="mb-4">
-                We perform security reviews and network investigations.
+              <p class="mb-6">
+                Our engineers bring extensive experience in website and app development, specializing in secure computing architecture and payment interface systems that bridge traditional and decentralized finance. Beyond traditional security reviews and network investigations, we now offer comprehensive DeFi solutions including:
               </p>
-              <p class="mb-8">
-                Contact us for a free consultation to see how we can help your business or organization.
+              <ul class="mb-6">
+                <li>Custom training courses in decentralized finance</li>
+                <li>Innovative payment integration systems</li>
+                <li>User-centric wallet designs for both beginners and experts</li>
+                <li>Security consulting and implementation</li>
+              </ul>
+              <p class="mb-6">
+                Our upcoming product line of intuitive wallets embodies our core mission: building trust through excellence in design - where robust security protocols meet elegant simplicity. We abstract away the complexities of cryptocurrency to deliver hassle-free investing solutions for the masses, while maintaining institutional-grade security standards.
+              </p>
+              <p class="mb-6">
+                Contact us for a free consultation to explore how our decade of blockchain security expertise can advance your business or organization's goals.
+              </p>
+              <p class="text-xl font-semibold italic">
+                Building trust through excellence - where security meets simplicity™
               </p>
             </div>
           </div>

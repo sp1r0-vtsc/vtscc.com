@@ -11,6 +11,21 @@ export default {
         'spiral': 'spiralAndZoom 4s ease-in-out forwards',
         'fade': 'fadeInBackground 2s ease-in-out forwards',
       },
+      maxWidth: {
+        '4xl': '56rem',
+        '6xl': '72rem',
+        '7xl': '80rem',
+      },
+      typography: {
+        lg: {
+          css: {
+            maxWidth: '75ch',
+            p: {
+              maxWidth: '75ch',
+            },
+          },
+        },
+      },
     },
   },
   plugins: [
