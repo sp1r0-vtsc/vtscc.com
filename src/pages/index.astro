@@ -1,10 +1,18 @@
 ---
+<<<<<<< Updated upstream
+import BaseHead from '../components/BaseHead.astro';
+import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
+import SidePanel from '../components/SidePanel.astro';
+import { SITE_TITLE, SITE_DESCRIPTION } from '../consts';
+=======
 import BaseLayout from '../layouts/BaseLayout.astro';
 import Container from '../components/Container.astro';
 import Section from '../components/Section.astro';
 import SidePanel from '../components/SidePanel.astro';
 import { SITE_TITLE, SITE_DESCRIPTION } from '../consts';
 import '../styles/layout.css';
+>>>>>>> Stashed changes
 import '../styles/animations.css';
 ---
 
@@ -21,61 +29,52 @@ import '../styles/animations.css';
         alt="Background" 
         class="w-full h-full object-cover animate-fade"
       />
-      />
       <div class="absolute inset-0 bg-black/5"></div>
     </div>
-<BaseLayout title={SITE_TITLE} description={SITE_DESCRIPTION} showBackground={true}>
-  <SidePanel />
-  
-  <Container size="wide">
-    <div class="grid lg:grid-cols-[auto,1fr] gap-8 lg:gap-12">
-      <!-- Logo Section -->
-      <div class="lg:sticky lg:top-24 w-full max-w-xs mx-auto lg:w-64">
-        <img 
-          src="/vtsc-background.jpg" 
-          alt="VSCC Tree Logo" 
-          class="w-full animate-spiral"
-        />
-      </div>
 
-      <!-- Content Section -->
-      <div class="w-full max-w-prose lg:max-w-none">
-        <Section background={true}>
-          <header class="mb-8 lg:mb-12">
-            <h1 class="text-3xl sm:text-4xl lg:text-5xl font-bold mb-4">{SITE_TITLE}</h1>
-            <h2 class="text-xl sm:text-2xl text-gray-600">Research Division</h2>
-          </header>
-          
-          <div class="prose prose-lg sm:prose-xl lg:prose-2xl max-w-none">
-            <p class="mb-6">
-              VTSCC is a pioneering computing services and technology consultancy with deep roots in blockchain security and payment systems. Since 2012, our journey began with intensive research into private key management and secure wallet architectures - lessons learned in the wake of historic breaches like MtGox that shaped our commitment to building better, more secure financial technology.
-            </p>
-
-            <p class="mb-6">
-              Our engineers bring extensive experience in website and app development, specializing in secure computing architecture and payment interface systems that bridge traditional and decentralized finance. Beyond traditional security reviews and network investigations, we now offer comprehensive DeFi solutions including:
-            </p>
-
-            <ul class="space-y-2 mb-6">
-              <li>Custom training courses in decentralized finance</li>
-              <li>Innovative payment integration systems</li>
-              <li>User-centric wallet designs for both beginners and experts</li>
-              <li>Security consulting and implementation</li>
-            </ul>
-
-            <p class="mb-6">
-              Our upcoming product line of intuitive wallets embodies our core mission: building trust through excellence in design - where robust security protocols meet elegant simplicity. We abstract away the complexities of cryptocurrency to deliver hassle-free investing solutions for the masses, while maintaining institutional-grade security standards.
-            </p>
-
-            <p class="mb-8">
-              Contact us for a free consultation to explore how our decade of blockchain security expertise can advance your business or organization's goals.
-            </p>
-
-            <p class="text-xl sm:text-2xl font-semibold italic text-primary">
-              Building trust through excellence - where security meets simplicity™
-            </p>
+    <Header />
+    <SidePanel />
+    
+    <main class="px-4 py-12">
+      <div class="max-w-6xl mx-auto">
+        <div class="flex flex-col md:flex-row items-center gap-8 mb-12">
+          <img 
+            src="/vtsc-background.jpg" 
+            alt="VSCC Tree Logo" 
+            class="w-48 md:w-64 animate-spiral"
+          />
+          <div>
+            <h1 class="text-4xl font-bold mb-4">{SITE_TITLE}</h1>
+            <h2 class="text-2xl text-gray-600 mb-8">Research Division</h2>
+            
+            <div class="prose prose-lg max-w-4xl">
+              <p class="mb-6">
+                VTSCC is a pioneering computing services and technology consultancy with deep roots in blockchain security and payment systems. Since 2012, our journey began with intensive research into private key management and secure wallet architectures - lessons learned in the wake of historic breaches like MtGox that shaped our commitment to building better, more secure financial technology.
+              </p>
+              <p class="mb-6">
+                Our engineers bring extensive experience in website and app development, specializing in secure computing architecture and payment interface systems that bridge traditional and decentralized finance. Beyond traditional security reviews and network investigations, we now offer comprehensive DeFi solutions including:
+              </p>
+              <ul class="mb-6">
+                <li>Custom training courses in decentralized finance</li>
+                <li>Innovative payment integration systems</li>
+                <li>User-centric wallet designs for both beginners and experts</li>
+                <li>Security consulting and implementation</li>
+              </ul>
+              <p class="mb-6">
+                Our upcoming product line of intuitive wallets embodies our core mission: building trust through excellence in design - where robust security protocols meet elegant simplicity. We abstract away the complexities of cryptocurrency to deliver hassle-free investing solutions for the masses, while maintaining institutional-grade security standards.
+              </p>
+              <p class="mb-6">
+                Contact us for a free consultation to explore how our decade of blockchain security expertise can advance your business or organization's goals.
+              </p>
+              <p class="text-xl font-semibold italic">
+                Building trust through excellence - where security meets simplicity™
+              </p>
+            </div>
           </div>
-        </Section>
+        </div>
       </div>
-    </div>
-  </Container>
-</BaseLayout>
+    </main>
+
+    <Footer />
+  </body>
+</html>
