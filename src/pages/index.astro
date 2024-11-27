@@ -8,6 +8,21 @@ import '../styles/layout.css';
 import '../styles/animations.css';
 ---
 
+<!doctype html>
+<html lang="en">
+  <head>
+    <BaseHead title={SITE_TITLE} description={SITE_DESCRIPTION} />
+  </head>
+  <body>
+    <!-- Background Image -->
+    <div class="fixed inset-0 z-[-1]">
+      <img 
+        src="/vtsc-background.jpg" 
+        alt="Background" 
+        class="w-full h-full object-cover animate-fade"
+      />
+      <div class="absolute inset-0 bg-black/5"></div>
+    </div>
 <BaseLayout title={SITE_TITLE} description={SITE_DESCRIPTION} showBackground={true}>
   <SidePanel />
   
