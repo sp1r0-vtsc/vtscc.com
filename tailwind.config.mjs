@@ -12,19 +12,40 @@ export default {
         'fade': 'fadeInBackground 2s ease-in-out forwards',
       },
       maxWidth: {
-        '4xl': '56rem',
-        '6xl': '72rem',
-        '7xl': '80rem',
+        'narrow': '640px',
+        'medium': '768px',
+        'wide': '1280px',
+        'max': '1536px',
       },
       typography: {
-        lg: {
+        DEFAULT: {
           css: {
-            maxWidth: '75ch',
-            p: {
-              maxWidth: '75ch',
-            },
+            maxWidth: 'none',
           },
         },
+        lg: {
+          css: {
+            maxWidth: 'none',
+          },
+        },
+        xl: {
+          css: {
+            maxWidth: 'none',
+          },
+        },
+        '2xl': {
+          css: {
+            maxWidth: 'none',
+          },
+        },
+      },
+      screens: {
+        'xs': '375px',
+        'sm': '640px',
+        'md': '768px',
+        'lg': '1024px',
+        'xl': '1280px',
+        '2xl': '1536px',
       },
     },
   },
