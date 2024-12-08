@@ -1,0 +1,27 @@
+/* Fluid typography */
+:root {
+  --fluid-min-width: 320;
+  --fluid-max-width: 1920;
+  --fluid-min-size: 16;
+  --fluid-max-size: 20;
+  --fluid-min-ratio: 1.2;
+  --fluid-max-ratio: 1.333;
+}
+
+@media screen and (min-width: 1920px) {
+  :root {
+    --fluid-screen: calc(var(--fluid-max-width) * 1px);
+  }
+}
+
+@media screen and (max-width: 320px) {
+  :root {
+    --fluid-screen: calc(var(--fluid-min-width) * 1px);
+  }
+}
+
+@media screen and (min-width: 321px) and (max-width: 1919px) {
+  :root {
+    --fluid-screen: 100vw;
+  }
+}
