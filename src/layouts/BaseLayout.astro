@@ -6,7 +6,7 @@ import { SITE_TITLE } from '../consts';
 
 interface Props {
   title?: string;
-  description?: string;
+  description: string;
   showBackground?: boolean;
 }
 
@@ -26,7 +26,7 @@ const {
     {showBackground && (
       <div class="fixed inset-0 z-[-1]">
         <img 
-          src="/vtsc-background.jpg" 
+          src="/mountain-vault.jpg" 
           alt="Background" 
           class="w-full h-full object-cover animate-fade"
         />

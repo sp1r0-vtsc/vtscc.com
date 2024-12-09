@@ -1,119 +1,112 @@
 ---
-import BaseHead from '../components/BaseHead.astro';
-import Header from '../components/Header.astro';
-import Footer from '../components/Footer.astro';
-import ProjectCard from '../components/ProjectCard.astro';
-import SidePanel from '../components/SidePanel.astro';
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Container from '../components/Container.astro';
+import Section from '../components/Section.astro';
+import DeFiAppSection from '../components/DeFiAppSection.astro';
+import SecurityToolsSection from '../components/SecurityToolsSection.astro';
+import SecurityTips from '../components/SecurityTips.astro';
 import { SITE_TITLE } from '../consts';
 
-const projects = [
-	{
-		title: 'WLog Network',
-		url: 'https://wlog.network',
-		description: 'Decentralized logging and monitoring infrastructure'
-	},
-	{
-		title: 'DogPay',
-		url: 'https://dogpay.info',
-		description: 'Secure cryptocurrency payment processing system'
-	},
-	{
-		title: 'Valswappa',
-		url: 'https://valswappa.com/',
-		description: 'Walletless front-end for the Thor Network, used and trusted by the DeFi community as a bridge.'
-	},
-	{
-		title: '0FFL1NE KeyVault',
-		url: 'https://patents.google.com/patent/US20160218873A1/en?inventor=Ian+Spiro',
-		description: 'Patent pending offline data diode system controller for secure cryptographic storage'
-	}
+const defiApps = [
+  {
+    title: 'Uniswap',
+    url: 'https://uniswap.org',
+    description: 'The gold standard of decentralized exchanges. Uniswap pioneered automated market making and continues to lead DeFi innovation with its simple, secure interface.'
+  },
+  {
+    title: 'Jupiter (JUP)',
+    url: 'https://jup.ag',
+    description: 'The most efficient DEX aggregator on Solana, providing the best routes and prices across multiple exchanges while maintaining an incredibly user-friendly experience.'
+  },
+  {
+    title: 'Beefy Finance',
+    url: 'https://app.beefy.com',
+    description: 'A multi-chain yield optimizer that automates compound farming, maximizing returns while minimizing fees and complexity. Perfect for passive DeFi earnings.'
+  },
+  {
+    title: 'Raydium',
+    url: 'https://raydium.io',
+    description: 'Premier AMM and liquidity provider on Solana, offering lightning-fast trades with minimal fees. Features an intuitive interface that makes DeFi accessible.'
+  }
 ];
 
-const securityPlugins = [
-	{
-		title: 'uBlock Origin',
-		url: 'https://ublockorigin.com/',
-		description: 'Essential content blocker for a safer browsing experience'
-	},
-	{
-		title: 'HTTPS Everywhere',
-		url: 'https://www.eff.org/https-everywhere',
-		description: 'Encrypt your web communications by enforcing HTTPS'
-	},
-	{
-		title: 'Privacy Badger',
-		url: 'https://privacybadger.org/',
-		description: 'Stops advertisers and trackers from secretly tracking where you go'
-	}
+const securityTools = [
+  {
+    title: 'MetaMask',
+    url: 'https://metamask.io',
+    description: 'Essential Web3 wallet for Ethereum and EVM chains. Carefully review permissions and always verify transaction details.'
+  },
+  {
+    title: 'Phantom',
+    url: 'https://phantom.app',
+    description: 'Secure and user-friendly Solana wallet. Features built-in NFT support and seamless DApp connections.'
+  },
+  {
+    title: 'Rabby Wallet',
+    url: 'https://rabby.io',
+    description: 'Enhanced security features for DeFi users, including detailed transaction analysis and phishing protection.'
+  }
+];
+
+const browserPlugins = [
+  {
+    title: 'uBlock Origin',
+    url: 'https://ublockorigin.com/',
+    description: 'Essential content blocker that helps prevent crypto-jacking and malicious scripts'
+  },
+  {
+    title: 'EtherAddressLookup',
+    url: 'https://chrome.google.com/webstore/detail/etheraddresslookup/pdknmigbbbhmllnmgdfalmedcmcefdfn',
+    description: 'Protects against phishing by maintaining a verified list of cryptocurrency addresses'
+  },
+  {
+    title: 'MetaMask Phishing Detection',
+    url: 'https://metamask.io/security/',
+    description: 'Built-in protection against known scam sites and suspicious smart contracts'
+  }
+];
+
+const securityTips = [
+  'Always verify smart contract addresses',
+  'Use hardware wallets for large holdings',
+  'Never share your private keys or seed phrases',
+  'Start with small amounts when trying new protocols'
 ];
 ---
 
-<!doctype html>
-<html lang="en">
-	<head>
-		<BaseHead 
-			title={`Curated Applications - ${SITE_TITLE}`} 
-			description="Staff-recommended secure computing applications and browser security tools"
-		/>
-	</head>
-	<body>
-		<Header />
-		<SidePanel />
-		<main class="px-4 py-12 max-w-6xl mx-auto">
-			<div class="mb-12">
-				<h1 class="text-4xl font-bold mb-4">Green Mountain Apps</h1>
-				<p class="text-xl text-gray-600">
-					A curated collection of Vermont-vetted applications and security tools,
-					hand-picked by our research staff for their excellence in secure computing.
-				</p>
-			</div>
+<BaseLayout 
+  title={`Green Mountain dApps - ${SITE_TITLE}`} 
+  description="Curated collection of secure and user-friendly DeFi applications and essential security tools"
+  showBackground={true}
+>
+  <Container size="wide">
+    <Section background={true}>
+      <div class="mb-12">
+        <h1 class="text-4xl font-bold mb-4">Green Mountain dApps</h1>
+        <p class="text-xl text-gray-600">
+          We believe DeFi shouldn't be difficult. Here's our curated collection of trusted decentralized 
+          applications and security tools that prioritize both user experience and safety.
+        </p>
+      </div>
 
-			<section class="mb-16">
-				<h2 class="text-2xl font-semibold mb-6">Featured Applications</h2>
-				<div class="grid md:grid-cols-2 gap-8">
-					{projects.map(project => (
-						<ProjectCard {...project} />
-					))}
-				</div>
-			</section>
+      <DeFiAppSection 
+        title="Featured DeFi Applications"
+        apps={defiApps}
+      />
 
-			<section class="mb-16">
-				<h2 class="text-2xl font-semibold mb-6">Recommended Security Plugins</h2>
-				<div class="bg-gray-50 p-6 rounded-lg mb-4">
-					<p class="text-gray-700 italic">
-						Essential browser extensions for maintaining privacy and security while navigating the modern web.
-					</p>
-				</div>
-				<div class="grid md:grid-cols-3 gap-6">
-					{securityPlugins.map(plugin => (
-						<div class="bg-white p-6 rounded-lg shadow-md hover:shadow-lg transition-shadow">
-							<h3 class="text-lg font-semibold mb-2">
-								<a href={plugin.url} target="_blank" rel="noopener noreferrer" 
-									class="text-accent hover:text-accent-dark">
-									{plugin.title}
-								</a>
-							</h3>
-							<p class="text-gray-600 text-sm">{plugin.description}</p>
-						</div>
-					))}
-				</div>
-			</section>
+      <SecurityToolsSection 
+        title="Essential Web3 Wallets"
+        description="Secure wallets are your gateway to DeFi. We recommend these trusted options for their balance of security features and ease of use."
+        tools={securityTools}
+      />
 
-			<section>
-				<div class="bg-blue-50 border-l-4 border-blue-400 p-6 rounded-lg">
-					<h2 class="text-xl font-semibold mb-2">Featured Content</h2>
-					<p class="text-gray-700 mb-4">Deep dive into internet security fundamentals:</p>
-					<a 
-						href="https://www.youtube.com/watch?v=qkJ04pBSxB4" 
-						target="_blank"
-						rel="noopener noreferrer"
-						class="text-blue-600 hover:text-blue-800 font-medium"
-					>
-						Internet Security: Myth or Legend? →
-					</a>
-				</div>
-			</section>
-		</main>
-		<Footer />
-	</body>
-</html>
+      <SecurityToolsSection 
+        title="Recommended Security Extensions"
+        description="Enhanced protection while navigating Web3. These browser extensions add essential security layers to your DeFi interactions."
+        tools={browserPlugins}
+      />
+
+      <SecurityTips tips={securityTips} />
+    </Section>
+  </Container>
+</BaseLayout>

@@ -14,21 +14,108 @@ import { SITE_TITLE, COMPANY_EMAIL } from '../consts';
 			description="Contact Vermont Secure Computing Consultancy for secure computing solutions and consultations."
 		/>
 	</head>
-	<body>
+	<body class="bg-slate-900">
 		<Header />
-		<main class="px-4 py-12 max-w-4xl mx-auto">
-			<h1 class="text-4xl font-bold mb-8">Contact Us</h1>
-			<div class="prose prose-lg max-w-none">
-				<ContactCard />
-				<div class="mt-12 bg-gray-50 p-8 rounded-lg">
-					<h2 class="text-2xl font-semibold mb-4">General Inquiries</h2>
-					<p class="text-gray-700">
-						Please direct general inquiries to:<br />
-						<span class="font-mono mt-2 block">{COMPANY_EMAIL}</span>
-					</p>
+		<!-- Background Image Container with darker overlay -->
+		<div class="fixed inset-0 w-full h-full">
+			<div class="absolute inset-0 bg-slate-900/70"></div>
+			<img 
+				src="/mountain-coin.jpg" 
+				alt="Background Vault" 
+				class="w-full h-full object-cover opacity-15"
+			/>
+		</div>
+
+		<main class="px-4 py-12 max-w-4xl mx-auto relative">
+			<div class="hover-trigger rounded-lg overflow-hidden transition-all duration-700">
+				<!-- Content Container -->
+				<div class="content-container bg-gradient-to-br from-slate-800/95 via-slate-900/95 to-slate-950/95 p-8 rounded-lg transition-all duration-700">
+					<h1 class="text-4xl font-bold mb-8 text-emerald-100">Contact Us</h1>
+					<div class="prose prose-lg max-w-none prose-invert prose-emerald">
+						<ContactCard />
+						<div class="mt-12 bg-slate-800/80 p-8 rounded-lg backdrop-blur-sm border border-emerald-900/30">
+							<h2 class="text-2xl font-semibold mb-4 text-emerald-100">General Inquiries</h2>
+							<p class="text-slate-300">
+								Please direct general inquiries to:<br />
+								<span class="font-mono mt-2 block text-emerald-200">{COMPANY_EMAIL}</span>
+							</p>
+						</div>
+					</div>
 				</div>
 			</div>
 		</main>
 		<Footer />
 	</body>
 </html>
+
+<style>
+	.hover-trigger {
+		position: relative;
+		z-index: 10;
+	}
+
+	.hover-trigger .content-container {
+		transform: translateY(0);
+		opacity: 0.1;
+		transition: all 700ms ease-in-out;
+		box-shadow: 0 0 40px rgba(16, 185, 129, 0.1);
+	}
+
+	.hover-trigger:hover .content-container {
+		opacity: 1;
+		backdrop-filter: blur(8px);
+		box-shadow: 0 0 60px rgba(16, 185, 129, 0.2);
+	}
+
+	/* Optional: Add a subtle animation for content appearance */
+	@keyframes fadeIn {
+		from {
+			opacity: 0.1;
+			transform: translateY(10px);
+		}
+		to {
+			opacity: 1;
+			transform: translateY(0);
+		}
+	}
+
+	/* Make sure the content is still accessible even when not hovered */
+	.content-container:focus-within {
+		opacity: 1;
+		backdrop-filter: blur(8px);
+		box-shadow: 0 0 60px rgba(16, 185, 129, 0.2);
+	}
+
+	/* Ensure form elements and links are always clickable */
+	.prose a, 
+	.prose button,
+	.prose input,
+	.prose textarea {
+		position: relative;
+		z-index: 20;
+	}
+
+	/* Custom link styles */
+	.prose a {
+		color: #34d399;
+		text-decoration: none;
+		transition: all 300ms ease-in-out;
+	}
+
+	.prose a:hover {
+		color: #6ee7b7;
+		text-decoration: underline;
+	}
+</style>
+
+<script>
+	// Optional: Add smooth scroll behavior
+	document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+		anchor.addEventListener('click', function (e) {
+			e.preventDefault();
+			document.querySelector(this.getAttribute('href')).scrollIntoView({
+				behavior: 'smooth'
+			});
+		});
+	});
+</script>
