@@ -6,6 +6,7 @@ import DeFiAppSection from '../components/DeFiAppSection.astro';
 import SecurityToolsSection from '../components/SecurityToolsSection.astro';
 import SecurityTips from '../components/SecurityTips.astro';
 import { SITE_TITLE } from '../consts';
+import SidePanel from '../components/SidePanel.astro';
 
 const defiApps = [
   {
@@ -79,15 +80,28 @@ const securityTips = [
   description="Curated collection of secure and user-friendly DeFi applications and essential security tools"
   showBackground={true}
 >
-  <Container size="wide">
-    <Section background={true}>
-      <div class="mb-12">
-        <h1 class="text-4xl font-bold mb-4">Green Mountain dApps</h1>
-        <p class="text-xl text-gray-600">
-          We believe DeFi shouldn't be difficult. Here's our curated collection of trusted decentralized 
-          applications and security tools that prioritize both user experience and safety.
-        </p>
-      </div>
+<SidePanel/>
+   <!-- Background with golden vault -->
+   <div class="fixed inset-0 w-full h-full -z-10">
+    <div class="absolute inset-0 bg-slate-900/80"></div>
+    <img 
+      src="/golden-vault.jpg" 
+      alt="Golden Vault Background" 
+      class="w-full h-full object-cover opacity-25"
+    />
+  </div>
+
+  <!-- Narrower container -->
+  <Container>
+    <div class="max-w-2xl mx-auto px-4 py-16">
+      <div class="bg-slate-800/90 backdrop-blur-sm p-8 rounded-lg border border-amber-900/30">
+        <div class="mb-12">
+          <h1 class="text-4xl font-bold mb-4 text-amber-100">Green Mountain dApps</h1>
+          <p class="text-xl text-amber-200/80">
+            We believe DeFi shouldn't be difficult. Here's our curated collection of trusted decentralized 
+            applications and security tools that prioritize both user experience and safety.
+          </p>
+        </div>
 
       <DeFiAppSection 
         title="Featured DeFi Applications"

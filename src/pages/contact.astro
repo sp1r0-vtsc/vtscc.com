@@ -4,6 +4,23 @@ import Header from '../components/Header.astro';
 import Footer from '../components/Footer.astro';
 import ContactCard from '../components/ContactCard.astro';
 import { SITE_TITLE, COMPANY_EMAIL } from '../consts';
+
+// let anchors: NodeListOf<HTMLAnchorElement>;
+
+// // Client-side script will run in browser
+// if (typeof document !== 'undefined') {
+//   anchors = document.querySelectorAll('a[href^="#"]');
+//   anchors.forEach(anchor => {
+//     anchor.addEventListener('click', function (e) {
+//       e.preventDefault();
+//       const targetId = this.getAttribute('href');
+//       const targetElement = document.querySelector(targetId);
+//       if (targetElement) {
+//         targetElement.scrollIntoView({ behavior: 'smooth' });
+//       }
+//     });
+//   });
+// });
 ---
 
 <!doctype html>
@@ -108,14 +125,18 @@ import { SITE_TITLE, COMPANY_EMAIL } from '../consts';
 	}
 </style>
 
-<script>
-	// Optional: Add smooth scroll behavior
-	document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-		anchor.addEventListener('click', function (e) {
-			e.preventDefault();
-			document.querySelector(this.getAttribute('href')).scrollIntoView({
-				behavior: 'smooth'
-			});
+<script is:inline>
+	// This script will only run in the browser
+	window.addEventListener('load', () => {
+	  const dropdownMenu = document.querySelector('.group div[class*="absolute"]');
+	  
+	  if (dropdownMenu) {
+		window.addEventListener('click', (event) => {
+		  const target = event.target;
+		  if (!target.closest('.group')) {
+			dropdownMenu.classList.remove('group-hover:visible', 'group-hover:opacity-100');
+		  }
 		});
+	  }
 	});
-</script>
+  </script>
