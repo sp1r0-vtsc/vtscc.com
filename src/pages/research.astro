@@ -1,0 +1,304 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Container from '../components/Container.astro';
+import { SITE_TITLE } from '../consts';
+import SidePanel from '../components/SidePanel.astro';
+
+interface Tool {
+  name: string;
+  description: string;
+  url: string;
+}
+
+const tools: Tool[] = [
+  {
+    name: 'Bitaddress.org',
+    description: 'Tool for creating and manipulating bitcoin addresses',
+    url: 'bitaddress/index.html'
+  },
+  {
+    name: 'Logaddress.org',
+    description: 'Tool for creating and manipulating woodcoin addresses',
+    url: 'logaddress/index.html'
+  },
+  {
+    name: 'Coinb.in',
+    description: 'Tool for creating bitcoin signatures, transactions, and wallet',
+    url: 'coinb-in/index.html'
+  },
+  {
+    name: 'Logb.in',
+    description: 'Tool for creating woodcoin signatures, transactions, and wallet',
+    url: 'logb-in/index.html'
+  },
+  {
+    name: 'Signing Tool',
+    description: 'Tool for creating and verifying bitcoin signatures',
+    url: 'sign-verify/index.html'
+  }
+];
+
+const githubLinks = [
+  'lukassaul',
+  'paulmadore',
+  'robertstuff',
+  'funkshelper',
+  'sp1r0',
+  'nkashdan',
+  'orgs/Vermont-Secure-Computing/owners_team'
+];
+---
+
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Container from '../components/Container.astro';
+import SidePanel from '../components/SidePanel.astro';
+import { SITE_TITLE } from '../consts';
+
+// ... rest of your imports and data ...
+---
+
+<BaseLayout 
+  title={`Research - ${SITE_TITLE}`} 
+  description="Research tools and resources from Vermont Secure Computing Consultancy."
+>
+  <!-- Side Panel with golden reflection effect -->
+  <div class="relative">
+    <div class="absolute top-0 right-0 w-1/4 h-full bg-gradient-to-l from-amber-500/10 to-transparent"></div>
+    <SidePanel />
+  </div>
+  
+  <!-- Background with golden vault -->
+  <div class="fixed inset-0 w-full h-full -z-10">
+    <div class="absolute inset-0 bg-slate-900/80"></div>
+    <img 
+      src="/golden-vault.jpg" 
+      alt="Golden Vault Background" 
+      class="w-full h-full object-cover opacity-25"
+    />
+  </div>
+
+  <Container>
+    <!-- Main Title -->
+    <h1 class="text-5xl font-bold text-center text-amber-100 mt-24 mb-12 relative">
+      <span class="bg-gradient-to-r from-amber-200 to-amber-100 bg-clip-text text-transparent">
+        Research Resources
+      </span>
+    </h1>
+
+    <!-- Content Layout -->
+    <div class="flex mx-auto px-1 pb-12">
+      <!-- Main content -->
+      <div class="max-w-4xl">
+        <div class="bg-slate-800/90 backdrop-blur-sm p-8 rounded-lg border border-amber-900/30 shadow-lg shadow-amber-900/20">
+          <!-- Your existing tools content -->
+          <section class="mb-20">
+            <h2 class="text-2xl font-semibold mb-6 text-amber-200">Offline Tools</h2>
+
+          <div class="bg-amber-900/20 border-l-4 border-amber-400/50 p-2 mb-8">
+            <p class="text-amber-200/90">
+              The following tools are archived here for the people who requested them and are not intended 
+              for public or private use :) They are to be downloaded, verified, and run on an offline machine.
+            </p>
+          </div>
+          
+          <div class="space-y-6">
+            {tools && (
+              <>
+                <div class="group hover:bg-slate-700/50 p-4 rounded-lg transition-all duration-300">
+                  <a href={tools[0].url} class="block">
+                    <h3 class="text-xl font-semibold text-amber-300 group-hover:text-amber-200 mb-2">
+                      {tools[0].name}
+                    </h3>
+                    <p class="text-slate-300 group-hover:text-slate-200">
+                      {tools[0].description}
+                    </p>
+                  </a>
+                </div>
+                <div class="group hover:bg-slate-700/50 p-4 rounded-lg transition-all duration-300">
+                  <a href={tools[1].url} class="block">
+                    <h3 class="text-xl font-semibold text-amber-300 group-hover:text-amber-200 mb-2">
+                      {tools[1].name}
+                    </h3>
+                    <p class="text-slate-300 group-hover:text-slate-200">
+                      {tools[1].description}
+                    </p>
+                  </a>
+                </div>
+                <div class="group hover:bg-slate-700/50 p-4 rounded-lg transition-all duration-300">
+                  <a href={tools[2].url} class="block">
+                    <h3 class="text-xl font-semibold text-amber-300 group-hover:text-amber-200 mb-2">
+                      {tools[2].name}
+                    </h3>
+                    <p class="text-slate-300 group-hover:text-slate-200">
+                      {tools[2].description}
+                    </p>
+                  </a>
+                </div>
+                <div class="group hover:bg-slate-700/50 p-4 rounded-lg transition-all duration-300">
+                  <a href={tools[3].url} class="block">
+                    <h3 class="text-xl font-semibold text-amber-300 group-hover:text-amber-200 mb-2">
+                      {tools[3].name}
+                    </h3>
+                    <p class="text-slate-300 group-hover:text-slate-200">
+                      {tools[3].description}
+                    </p>
+                  </a>
+                </div>
+                <div class="group hover:bg-slate-700/50 p-4 rounded-lg transition-all duration-300">
+                  <a href={tools[4].url} class="block">
+                    <h3 class="text-xl font-semibold text-amber-300 group-hover:text-amber-200 mb-2">
+                      {tools[4].name}
+                    </h3>
+                    <p class="text-slate-300 group-hover:text-slate-200">
+                      {tools[4].description}
+                    </p>
+                  </a>
+                </div>
+              </>
+            )}
+          </div>
+        </section>
+
+        <section>
+          <h2 class="text-2xl font-semibold mb-4 text-amber-200">Contributors</h2>
+          <div class="flex flex-wrap gap-2">
+            <a 
+              href={`https://github.com/${githubLinks[0]}`}
+              target="_blank"
+              rel="noopener noreferrer"
+              class="inline-block px-4 py-2 bg-slate-700/50 hover:bg-slate-600/50 rounded-full text-amber-200 hover:text-amber-100 transition-colors duration-300"
+            >
+              {githubLinks[0]}
+            </a>
+            <a 
+              href={`https://github.com/${githubLinks[1]}`}
+              target="_blank"
+              rel="noopener noreferrer"
+              class="inline-block px-4 py-2 bg-slate-700/50 hover:bg-slate-600/50 rounded-full text-amber-200 hover:text-amber-100 transition-colors duration-300"
+            >
+              {githubLinks[1]}
+            </a>
+            <a 
+              href={`https://github.com/${githubLinks[2]}`}
+              target="_blank"
+              rel="noopener noreferrer"
+              class="inline-block px-4 py-2 bg-slate-700/50 hover:bg-slate-600/50 rounded-full text-amber-200 hover:text-amber-100 transition-colors duration-300"
+            >
+              {githubLinks[2]}
+            </a>
+            <a 
+              href={`https://github.com/${githubLinks[3]}`}
+              target="_blank"
+              rel="noopener noreferrer"
+              class="inline-block px-4 py-2 bg-slate-700/50 hover:bg-slate-600/50 rounded-full text-amber-200 hover:text-amber-100 transition-colors duration-300"
+            >
+              {githubLinks[3]}
+            </a>
+            <a 
+              href={`https://github.com/${githubLinks[4]}`}
+              target="_blank"
+              rel="noopener noreferrer"
+              class="inline-block px-4 py-2 bg-slate-700/50 hover:bg-slate-600/50 rounded-full text-amber-200 hover:text-amber-100 transition-colors duration-300"
+            >
+              {githubLinks[4]}
+            </a>
+            <a 
+              href={`https://github.com/${githubLinks[5]}`}
+              target="_blank"
+              rel="noopener noreferrer"
+              class="inline-block px-4 py-2 bg-slate-700/50 hover:bg-slate-600/50 rounded-full text-amber-200 hover:text-amber-100 transition-colors duration-300"
+            >
+              {githubLinks[5]}
+            </a>
+            <a 
+              href={`https://github.com/${githubLinks[6]}`}
+              target="_blank"
+              rel="noopener noreferrer"
+              class="inline-block px-4 py-2 bg-slate-700/50 hover:bg-slate-600/50 rounded-full text-amber-200 hover:text-amber-100 transition-colors duration-300"
+            >
+              {githubLinks[6].split('/').pop()}
+            </a>
+          </div>
+        </section>
+      </div>
+    </div>
+       <!-- Mining For Profit sidebar -->
+      <div class="w-[350px] flex-shrink-0">
+        <div class="bg-slate-800/90 backdrop-blur-sm p-6 rounded-lg border border-amber-900/30 shadow-lg shadow-amber-900/20 sticky top-24">
+          <h2 class="text-2xl font-semibold mb-6 text-amber-200">
+            <span class="bg-gradient-to-r from-amber-200 to-amber-100 bg-clip-text text-transparent">
+              Mining For Profit
+            </span>
+          </h2>
+          
+          <!-- QRL Calculator -->
+          <div class="mb-8 bg-slate-700/50 p-4 rounded-lg">
+            <h3 class="text-lg font-medium mb-3 text-amber-100">QRL Mining Calculator</h3>
+            <a 
+              class="minerstat-widget" 
+              title="QRL mining calculator" 
+              data-coin="QRL" 
+              data-algo="RandomX" 
+              data-info="yes" 
+              data-style="light" 
+              data-color="" 
+              data-unit="H" 
+              data-hashrate="100" 
+              data-width="300" 
+              rel="nofollow" 
+              href="https://minerstat.com/coin/QRL"
+            >
+              Quantum Resistant Ledger mining calculator
+            </a>
+          </div>
+           <!-- Mining For Profit sidebar -->
+      <div class="w-[350px] flex-shrink-0">
+        <div class="bg-slate-800/90 backdrop-blur-sm p-6 rounded-lg border border-amber-900/30 shadow-lg shadow-amber-900/20 sticky top-24">
+          <h2 class="text-2xl font-semibold mb-6 text-amber-200">
+            <span class="bg-gradient-to-r from-amber-200 to-amber-100 bg-clip-text text-transparent">
+              Mining For Fun
+            </span>
+          </h2>
+
+          <!-- XMR Calculator -->
+          <div class="mb-6 bg-slate-700/50 p-4 rounded-lg">
+            <h3 class="text-lg font-medium mb-3 text-amber-100">Getting Started</h3>
+            <a 
+              class="minerstat-widget" 
+              title="XMR mining calculator" 
+              data-coin="XMR" 
+              data-algo="RandomX" 
+              data-info="yes" 
+              data-style="light" 
+              data-color="" 
+              data-unit="H" 
+              data-hashrate="100" 
+              data-width="300" 
+              rel="nofollow" 
+              href="https://minerstat.com/coin/XMR"
+            >
+            Minerstat XMR mining 
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </Container>
+</BaseLayout>
+
+<script is:inline async src="https://api.minerstat.com/v2/widgets/coin.js" charset="utf-8"></script>
+
+<style>
+  /* Optional: Add a subtle animation to the title */
+  h1 span {
+    background-size: 200% auto;
+    animation: shine 3s linear infinite;
+  }
+
+  @keyframes shine {
+    to {
+      background-position: 200% center;
+    }
+  }
+</style>
