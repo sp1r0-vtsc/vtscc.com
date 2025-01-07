@@ -49,18 +49,9 @@ const githubLinks = [
 ];
 ---
 
----
-import BaseLayout from '../layouts/BaseLayout.astro';
-import Container from '../components/Container.astro';
-import SidePanel from '../components/SidePanel.astro';
-import { SITE_TITLE } from '../consts';
-
-// ... rest of your imports and data ...
----
-
 <BaseLayout 
   title={`Research - ${SITE_TITLE}`} 
-  description="Research tools and resources from Vermont Secure Computing Consultancy."
+  description="Research and expertise from Vermont Secure Computing Consultancy."
 >
   <!-- Side Panel with golden reflection effect -->
   <div class="relative">
@@ -82,153 +73,119 @@ import { SITE_TITLE } from '../consts';
     <!-- Main Title -->
     <h1 class="text-5xl font-bold text-center text-amber-100 mt-24 mb-12 relative">
       <span class="bg-gradient-to-r from-amber-200 to-amber-100 bg-clip-text text-transparent">
-        Research Resources
+        Research & Expertise
       </span>
     </h1>
 
     <!-- Content Layout -->
-    <div class="flex mx-auto px-1 pb-12">
+    <div class="flex flex-col lg:flex-row gap-8 mx-auto px-4 pb-12">
       <!-- Main content -->
-      <div class="max-w-4xl">
+      <div class="lg:w-2/3">
         <div class="bg-slate-800/90 backdrop-blur-sm p-8 rounded-lg border border-amber-900/30 shadow-lg shadow-amber-900/20">
-          <!-- Your existing tools content -->
-          <section class="mb-20">
+          <!-- Company Overview -->
+          <section class="mb-12">
+            <h2 class="text-3xl font-bold mb-6 text-amber-200">Pioneering Simplicity in Web3</h2>
+            <div class="prose prose-lg prose-invert max-w-none">
+              <p>
+                Vermont Secure Computing Consultancy (VTSCC) stands at the forefront of secure computing solutions and blockchain technology, drawing from over a decade of experience in building resilient financial systems. Since 2012, we've been pioneering approaches to secure key management and digital asset protection, evolving alongside the cryptocurrency ecosystem through its most formative events.
+              </p>
+            </div>
+          </section>
+
+          <!-- Expertise Sections -->
+          <section class="space-y-8">
+            <h2 class="text-2xl font-semibold text-amber-200">Areas of Expertise</h2>
+            
+            <div class="space-y-6">
+              <div class="bg-slate-700/50 p-6 rounded-lg">
+                <h3 class="text-xl font-semibold mb-3 text-amber-100">Secure Computing Architecture</h3>
+                <p class="text-slate-300">
+                  From cold storage solutions to multi-signature systems, we design and implement computing environments that prioritize security without sacrificing usability. Our experience with early cryptocurrency exchanges and payment processors has shaped our approach to building systems that stand the test of time.
+                </p>
+              </div>
+
+              <div class="bg-slate-700/50 p-6 rounded-lg">
+                <h3 class="text-xl font-semibold mb-3 text-amber-100">Blockchain & Digital Asset Security</h3>
+                <p class="text-slate-300">
+                  We specialize in cryptocurrency wallet architecture, smart contract auditing, and secure key management protocols. Our team has been researching and implementing blockchain solutions since the early days of digital currency, giving us unique insight into both the technical and practical aspects of crypto security.
+                </p>
+              </div>
+
+              <div class="bg-slate-700/50 p-6 rounded-lg">
+                <h3 class="text-xl font-semibold mb-3 text-amber-100">Payment Systems Integration</h3>
+                <p class="text-slate-300">
+                  We bridge the gap between traditional finance and DeFi, creating seamless payment interfaces that handle both fiat and cryptocurrency transactions. Our solutions abstract away complexity while maintaining institutional-grade security standards.
+                </p>
+              </div>
+
+              <div class="bg-slate-700/50 p-6 rounded-lg">
+                <h3 class="text-xl font-semibold mb-3 text-amber-100">Security Audits & Risk Assessment</h3>
+                <p class="text-slate-300">
+                  Drawing from our extensive background in network security and digital asset protection, we provide comprehensive security reviews that address both technical vulnerabilities and operational risks. Our audit methodology has been refined through years of investigating and preventing security breaches in the cryptocurrency space.
+                </p>
+              </div>
+
+              <div class="bg-slate-700/50 p-6 rounded-lg">
+                <h3 class="text-xl font-semibold mb-3 text-amber-100">Web3 Development & Integration</h3>
+                <p class="text-slate-300">
+                  We build modern web applications that seamlessly integrate with blockchain technologies, creating intuitive interfaces for complex decentralized systems. Our development approach emphasizes security at every layer while maintaining user-friendly experiences.
+                </p>
+              </div>
+            </div>
+          </section>
+
+          <!-- Tools Section -->
+          <section class="mt-12">
             <h2 class="text-2xl font-semibold mb-6 text-amber-200">Offline Tools</h2>
+            
+            <div class="bg-amber-900/20 border-l-4 border-amber-400/50 p-4 mb-8">
+              <p class="text-amber-200/90">
+                The following tools are archived here for the people who requested them and are not intended 
+                for public or private use :) They are to be downloaded, verified, and run on an offline machine.
+              </p>
+            </div>
 
-          <div class="bg-amber-900/20 border-l-4 border-amber-400/50 p-2 mb-8">
-            <p class="text-amber-200/90">
-              The following tools are archived here for the people who requested them and are not intended 
-              for public or private use :) They are to be downloaded, verified, and run on an offline machine.
-            </p>
-          </div>
-          
-          <div class="space-y-6">
-            {tools && (
-              <>
+            <div class="space-y-4">
+              {tools.map((tool) => (
                 <div class="group hover:bg-slate-700/50 p-4 rounded-lg transition-all duration-300">
-                  <a href={tools[0].url} class="block">
+                  <a href={tool.url} class="block">
                     <h3 class="text-xl font-semibold text-amber-300 group-hover:text-amber-200 mb-2">
-                      {tools[0].name}
+                      {tool.name}
                     </h3>
                     <p class="text-slate-300 group-hover:text-slate-200">
-                      {tools[0].description}
+                      {tool.description}
                     </p>
                   </a>
                 </div>
-                <div class="group hover:bg-slate-700/50 p-4 rounded-lg transition-all duration-300">
-                  <a href={tools[1].url} class="block">
-                    <h3 class="text-xl font-semibold text-amber-300 group-hover:text-amber-200 mb-2">
-                      {tools[1].name}
-                    </h3>
-                    <p class="text-slate-300 group-hover:text-slate-200">
-                      {tools[1].description}
-                    </p>
-                  </a>
-                </div>
-                <div class="group hover:bg-slate-700/50 p-4 rounded-lg transition-all duration-300">
-                  <a href={tools[2].url} class="block">
-                    <h3 class="text-xl font-semibold text-amber-300 group-hover:text-amber-200 mb-2">
-                      {tools[2].name}
-                    </h3>
-                    <p class="text-slate-300 group-hover:text-slate-200">
-                      {tools[2].description}
-                    </p>
-                  </a>
-                </div>
-                <div class="group hover:bg-slate-700/50 p-4 rounded-lg transition-all duration-300">
-                  <a href={tools[3].url} class="block">
-                    <h3 class="text-xl font-semibold text-amber-300 group-hover:text-amber-200 mb-2">
-                      {tools[3].name}
-                    </h3>
-                    <p class="text-slate-300 group-hover:text-slate-200">
-                      {tools[3].description}
-                    </p>
-                  </a>
-                </div>
-                <div class="group hover:bg-slate-700/50 p-4 rounded-lg transition-all duration-300">
-                  <a href={tools[4].url} class="block">
-                    <h3 class="text-xl font-semibold text-amber-300 group-hover:text-amber-200 mb-2">
-                      {tools[4].name}
-                    </h3>
-                    <p class="text-slate-300 group-hover:text-slate-200">
-                      {tools[4].description}
-                    </p>
-                  </a>
-                </div>
-              </>
-            )}
-          </div>
-        </section>
+              ))}
+            </div>
+          </section>
 
-        <section>
-          <h2 class="text-2xl font-semibold mb-4 text-amber-200">Contributors</h2>
-          <div class="flex flex-wrap gap-2">
-            <a 
-              href={`https://github.com/${githubLinks[0]}`}
-              target="_blank"
-              rel="noopener noreferrer"
-              class="inline-block px-4 py-2 bg-slate-700/50 hover:bg-slate-600/50 rounded-full text-amber-200 hover:text-amber-100 transition-colors duration-300"
-            >
-              {githubLinks[0]}
-            </a>
-            <a 
-              href={`https://github.com/${githubLinks[1]}`}
-              target="_blank"
-              rel="noopener noreferrer"
-              class="inline-block px-4 py-2 bg-slate-700/50 hover:bg-slate-600/50 rounded-full text-amber-200 hover:text-amber-100 transition-colors duration-300"
-            >
-              {githubLinks[1]}
-            </a>
-            <a 
-              href={`https://github.com/${githubLinks[2]}`}
-              target="_blank"
-              rel="noopener noreferrer"
-              class="inline-block px-4 py-2 bg-slate-700/50 hover:bg-slate-600/50 rounded-full text-amber-200 hover:text-amber-100 transition-colors duration-300"
-            >
-              {githubLinks[2]}
-            </a>
-            <a 
-              href={`https://github.com/${githubLinks[3]}`}
-              target="_blank"
-              rel="noopener noreferrer"
-              class="inline-block px-4 py-2 bg-slate-700/50 hover:bg-slate-600/50 rounded-full text-amber-200 hover:text-amber-100 transition-colors duration-300"
-            >
-              {githubLinks[3]}
-            </a>
-            <a 
-              href={`https://github.com/${githubLinks[4]}`}
-              target="_blank"
-              rel="noopener noreferrer"
-              class="inline-block px-4 py-2 bg-slate-700/50 hover:bg-slate-600/50 rounded-full text-amber-200 hover:text-amber-100 transition-colors duration-300"
-            >
-              {githubLinks[4]}
-            </a>
-            <a 
-              href={`https://github.com/${githubLinks[5]}`}
-              target="_blank"
-              rel="noopener noreferrer"
-              class="inline-block px-4 py-2 bg-slate-700/50 hover:bg-slate-600/50 rounded-full text-amber-200 hover:text-amber-100 transition-colors duration-300"
-            >
-              {githubLinks[5]}
-            </a>
-            <a 
-              href={`https://github.com/${githubLinks[6]}`}
-              target="_blank"
-              rel="noopener noreferrer"
-              class="inline-block px-4 py-2 bg-slate-700/50 hover:bg-slate-600/50 rounded-full text-amber-200 hover:text-amber-100 transition-colors duration-300"
-            >
-              {githubLinks[6].split('/').pop()}
-            </a>
-          </div>
-        </section>
+          <!-- Contributors Section -->
+          <section class="mt-12">
+            <h2 class="text-2xl font-semibold mb-6 text-amber-200">Contributors</h2>
+            <div class="flex flex-wrap gap-2">
+              {githubLinks.map((link) => (
+                <a 
+                  href={`https://github.com/${link}`}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  class="inline-block px-4 py-2 bg-slate-700/50 hover:bg-slate-600/50 rounded-full text-amber-200 hover:text-amber-100 transition-colors duration-300"
+                >
+                  {link.includes('/') ? link.split('/').pop() : link}
+                </a>
+              ))}
+            </div>
+          </section>
+        </div>
       </div>
-    </div>
-       <!-- Mining For Profit sidebar -->
-      <div class="w-[350px] flex-shrink-0">
+
+      <!-- Sidebar -->
+      <div class="lg:w-1/3">
         <div class="bg-slate-800/90 backdrop-blur-sm p-6 rounded-lg border border-amber-900/30 shadow-lg shadow-amber-900/20 sticky top-24">
           <h2 class="text-2xl font-semibold mb-6 text-amber-200">
             <span class="bg-gradient-to-r from-amber-200 to-amber-100 bg-clip-text text-transparent">
-              Mining For Profit
+              Mining Resources
             </span>
           </h2>
           
@@ -237,7 +194,6 @@ import { SITE_TITLE } from '../consts';
             <h3 class="text-lg font-medium mb-3 text-amber-100">QRL Mining Calculator</h3>
             <a 
               class="minerstat-widget" 
-              title="QRL mining calculator" 
               data-coin="QRL" 
               data-algo="RandomX" 
               data-info="yes" 
@@ -252,21 +208,12 @@ import { SITE_TITLE } from '../consts';
               Quantum Resistant Ledger mining calculator
             </a>
           </div>
-           <!-- Mining For Profit sidebar -->
-      <div class="w-[350px] flex-shrink-0">
-        <div class="bg-slate-800/90 backdrop-blur-sm p-6 rounded-lg border border-amber-900/30 shadow-lg shadow-amber-900/20 sticky top-24">
-          <h2 class="text-2xl font-semibold mb-6 text-amber-200">
-            <span class="bg-gradient-to-r from-amber-200 to-amber-100 bg-clip-text text-transparent">
-              Mining For Fun
-            </span>
-          </h2>
 
           <!-- XMR Calculator -->
           <div class="mb-6 bg-slate-700/50 p-4 rounded-lg">
-            <h3 class="text-lg font-medium mb-3 text-amber-100">Getting Started</h3>
+            <h3 class="text-lg font-medium mb-3 text-amber-100">XMR Mining Calculator</h3>
             <a 
               class="minerstat-widget" 
-              title="XMR mining calculator" 
               data-coin="XMR" 
               data-algo="RandomX" 
               data-info="yes" 
@@ -278,7 +225,7 @@ import { SITE_TITLE } from '../consts';
               rel="nofollow" 
               href="https://minerstat.com/coin/XMR"
             >
-            Minerstat XMR mining 
+              Monero mining calculator
             </a>
           </div>
         </div>

@@ -1,215 +1,318 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
-import Container from '../components/Container.astro';
-import Section from '../components/Section.astro';
-import { SITE_DESCRIPTION, SITE_TITLE } from '../consts';
-import SidePanel from '../components/SidePanel.astro';
+import { SITE_TITLE, SITE_DESCRIPTION } from '../consts';
+import '../styles/animations.css';
 
+import { getCollection } from 'astro:content';
+
+const posts = (await getCollection('blog')).sort(
+  (a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf()
+);
+
+const latestPost = posts[0];
+
+const navItems = [
+  { name: '2025 H4CKZ', image: '/treeloop.jpg', secondaryImage: '/slaughterline.jpg', link: '/blog/sams-scams' },
+  { name: 'About Us', image: '/treedetails.jpg', link: '/about' },
+  { name: 'Projects', image: '/treeshine.jpg', link: '/projects' },
+  { name: 'DeFi Simplified', image: '/treeloop.jpg', link: '/research' }
+];
 ---
 
-<BaseLayout title={SITE_TITLE} description={SITE_DESCRIPTION} showBackground={true}>
-  <SidePanel/>
-  <!-- Background Image with fade-in -->
-  <div class="fixed inset-0 w-full h-full animate-fade-in">
-    <img 
-      src="/mountain-coin-bw.jpg" 
-      alt="Background Vault" 
-      class="w-full h-full object-cover opacity-20"
-    />
+<BaseLayout 
+  title={SITE_TITLE} 
+  description={SITE_DESCRIPTION}
+  data-latest-post-slug={latestPost?.slug}
+  data-latest-post-title={latestPost?.data.title}
+  data-latest-post-description={latestPost?.data.description}
+>
+  <div class="fixed inset-0 bg-black z-0">
+    <div class="lightning-container">
+      <div class="lightning-bolt"></div>
+    </div>
   </div>
   
-  <Container size="wide">
-    <div class="flex flex-col md:flex-row items-start gap-12 relative">
-      <!-- Larger Sticky Image -->
-      <div class="sticky top-24 w-64 md:w-96 h-[400px] overflow-visible rounded-full shadow-lg hover-container">
+  <!-- Blog Post Popup -->
+  <div id="blogPopup" class="fixed inset-0 z-50 hidden">
+    <div class="absolute inset-0 bg-black/70"></div>
+    <div class="relative max-w-lg mx-auto mt-20 bg-slate-800 rounded-lg shadow-xl p-6">
+      <h2 id="popupTitle" class="text-2xl font-bold text-emerald-100 mb-4"></h2>
+      <p id="popupDescription" class="text-slate-300 mb-6"></p>
+      <div class="flex justify-end gap-4">
+        <button id="readMoreBtn" class="px-4 py-2 bg-emerald-600 text-white rounded hover:bg-emerald-700">
+          Read More
+        </button>
+        <button id="closePopupBtn" class="px-4 py-2 bg-slate-600 text-white rounded hover:bg-slate-700">
+          Close
+        </button>
+      </div>
+    </div>
+  </div>
+  
+  <main class="relative min-h-screen overflow-hidden">
+    <div class="tree-container fixed inset-0 flex items-center justify-center">
+      <!-- Background gradient -->
+      <div class="absolute inset-0 bg-gradient-to-br from-black via-gray-900 to-black"></div>
+      
+      <!-- Magical Tree Entrance -->
+      <div class="tree-entrance-container">
+        <div class="absolute inset-0 bg-black transition-opacity duration-1000"></div>
         <img 
-          src="/mountain-vault.jpg" 
-          alt="VSCC Logo" 
-          class="w-full h-full object-cover transform transition-all duration-700 ease-in-out translate-y-24 motion-safe:scroll-trigger:translate-y-0 hover:scale-[3] hover:opacity-20 hover:rounded-none hover:absolute hover:z-10 cursor-pointer"
-          id="vaultTrigger"
+          src="/hometree.jpg" 
+          alt="Magical Tree 1" 
+          class="tree-entrance tree-1 absolute w-screen h-screen object-cover opacity-0"
+        />
+        <img 
+          src="/treedetails.jpg" 
+          alt="Magical Tree 2" 
+          class="tree-entrance tree-2 absolute w-screen h-screen object-cover opacity-0"
+        />
+        <img 
+          src="/treeshine.jpg" 
+          alt="Magical Tree 3" 
+          class="tree-entrance tree-3 absolute w-screen h-screen object-cover opacity-0"
         />
       </div>
 
-        <div class="prose prose-lg max-w-none relative z-20 bg-white/95 p-8 rounded-lg transition-all duration-700 ease-in-out" id="contentContainer">
-          <h1 class="text-4xl font-bold mb-8">Ethan Allen Meets Claude Shannon: Pioneering Simplicity in Web3</h1>
-          
-          
-          <!-- First floating image -->
-          <div class="float-right ml-8 mb-8 w-48 md:w-64 hover-container">
-            <img 
-              src="/golden-vault.jpg" 
-              alt="Secure Computing" 
-              class="w-full rounded-lg shadow-lg transition-all duration-700 hover:scale-[3] hover:opacity-20 hover:z-30"
-            />
+      <!-- Latest Transmissions -->
+      <a href={`/blog/${latestPost.slug}`} class="absolute bottom-8 right-8 w-96 bg-black/30 backdrop-blur-sm rounded-lg blog-post-container group hover:bg-black/40 transition-all duration-300">
+        <div class="p-6">
+          <h2 class="text-lg font-bold text-emerald-100/90 mb-3 border-b border-emerald-500/30 pb-2 sharp-heading group-hover:text-emerald-100 group-hover:border-emerald-500/50">Latest Transmissions</h2>
+          <div class="text-slate-300/90 group-hover:text-slate-300">
+            <img src={latestPost.data.heroImage} alt={latestPost.data.title} class="w-full h-40 object-cover rounded mb-3"/>
+            <h3 class="text-md text-emerald-200/90 mb-2 group-hover:text-emerald-200">{latestPost.data.title}</h3>
           </div>
-            Vermont Secure Computing Consultancy (VTSCC) stands at the forefront of secure computing solutions and blockchain technology, drawing from over a decade of experience in building resilient financial systems. Since 2012, we've been pioneering approaches to secure key management and digital asset protection, evolving alongside the cryptocurrency ecosystem through its most formative events.
-          </p>
-
-
-          <h2 class="text-2xl font-bold mt-8 mb-4">Our Expertise</h2>
-          <p class="mb-4">
-            Our comprehensive technical expertise spans both traditional and decentralized systems:
-          </p>
-
-          <h3 class="text-xl font-bold mt-6 mb-3">Secure Computing Architecture</h3>
-          <p class="mb-6">
-            From cold storage solutions to multi-signature systems, we design and implement computing environments that prioritize security without sacrificing usability. Our experience with early cryptocurrency exchanges and payment processors has shaped our approach to building systems that stand the test of time.
-          </p>
-
-          <h3 class="text-xl font-bold mt-6 mb-3">Blockchain & Digital Asset Security</h3>
-          <p class="mb-6">
-            We specialize in cryptocurrency wallet architecture, smart contract auditing, and secure key management protocols. Our team has been researching and implementing blockchain solutions since the early days of digital currency, giving us unique insight into both the technical and practical aspects of crypto security.
-          </p>
-          <!-- Second floating image -->
-          <div class="float-left mr-8 mb-8 w-48 md:w-64 hover-container">
-            <img 
-              src="/mountain-coin.jpg" 
-              alt="Blockchain Technology" 
-              class="w-full rounded-lg shadow-lg transition-all duration-700 hover:scale-[3] hover:opacity-20 hover:z-30"
-            />
-          </div>
-
-          <h3 class="text-xl font-bold mt-6 mb-3">Payment Systems Integration</h3>
-          <p class="mb-6">
-            We bridge the gap between traditional finance and DeFi, creating seamless payment interfaces that handle both fiat and cryptocurrency transactions. Our solutions abstract away complexity while maintaining institutional-grade security standards.
-          </p>
-
-          <h3 class="text-xl font-bold mt-6 mb-3">Security Audits & Risk Assessment</h3>
-          <p class="mb-6">
-            Drawing from our extensive background in network security and digital asset protection, we provide comprehensive security reviews that address both technical vulnerabilities and operational risks. Our audit methodology has been refined through years of investigating and preventing security breaches in the cryptocurrency space.
-          </p>
-          
-           
-          <h3 class="text-xl font-bold mt-6 mb-3">Web3 Development & Integration</h3>
-          <p class="mb-6">
-            We build modern web applications that seamlessly integrate with blockchain technologies, creating intuitive interfaces for complex decentralized systems. Our development approach emphasizes security at every layer while maintaining user-friendly experiences.
-          </p>
-           <!-- Third floating image -->
-           <div class="float-right ml-8 mb-8 w-48 md:w-64 hover-container">
-            <img 
-              src="/green-vault.jpg" 
-              alt="Digital Security" 
-              class="w-full rounded-lg shadow-lg transition-all duration-700 hover:scale-[3] hover:opacity-20 hover:z-30"
-            />
-          </div>
-
-          <h3 class="text-xl font-bold mt-6 mb-3">Custom Training & Education</h3>
-          <p class="mb-6">
-            We offer specialized training programs in DeFi, cryptocurrency security, and blockchain technology, sharing our decade of experience to help organizations build their internal expertise.
-          </p>
-
-          <div class="bg-gray-50 p-8 rounded-lg mt-8 mb-8">
-            <p class="mb-6">
-              At VTSCC, we understand that security isn't just about implementing strong protocols - it's about creating systems that people can use confidently and safely. Our commitment to privacy and security is matched only by our dedication to making complex technologies accessible through thoughtful design and implementation.
-            </p>
-
-            <p class="mb-0">
-              Our team's experience spans the entire history of modern cryptocurrency, from the early exchange hacks to the latest DeFi innovations. We've seen first-hand how security failures happen, and more importantly, how to prevent them. This deep historical understanding informs every solution we design and every system we build.
-            </p>
-          </div>
-         
-
-          <p class="text-lg font-medium">
-            Whether you're looking to secure existing systems, develop new blockchain-based solutions, or train your team in cryptocurrency security best practices, VTSCC brings the expertise and experience to help you succeed safely in the digital asset space.
-          </p>
         </div>
+      </a>
+      
+      <!-- Circular Navigation -->
+      <div class="nav-circle">
+        {navItems.map((item, index) => (
+          <a 
+            href={`/${item.name.toLowerCase()}`} 
+            class="nav-item group"
+            data-image={item.image}
+          >
+            <div class="nav-section text-white text-xl font-bold">
+              {item.name}
+            </div>
+          </a>
+        ))}
       </div>
-    </Section>
-     <!-- Footer Tree Logo -->
-     <div class="mt-24 mb-12 max-w-xs mx-auto">
-      <img 
-        src="/vtsc-background.jpg" 
-        alt="VTSC Tree Logo" 
-        class="w-full opacity-80 hover:opacity-100 transition-opacity duration-300"
-      />
+
+      <!-- Tree images that appear on hover -->
+      {navItems.map((item) => (
+        <img 
+          src={item.image}
+          alt={`${item.name} Tree`}
+          class="tree-image w-[400px] h-[400px] object-cover rounded-full"
+          data-section={item.name.toLowerCase()}
+        />
+      ))}
     </div>
-  </Container>
+  </main>
 </BaseLayout>
 
-<style>
-  .scroll-trigger {
-    view-timeline-name: --reveal;
-    view-timeline-axis: block;
-  }
-
-  @keyframes fadeIn {
-    from {
-      opacity: 0;
-    }
-    to {
-      opacity: 0.2;
-    }
-  }
-
-  .animate-fade-in {
-    animation: fadeIn 1.5s ease-in forwards;
-  }
-  .scroll-trigger {
-    view-timeline-name: --reveal;
-    view-timeline-axis: block;
-  }
-
-  @keyframes reveal {
-    from {
-      transform: translateY(100px);
-    }
-    to {
-      transform: translateY(0);
-    }
-  }
-
-  .bg-transparent {
-    background-color: transparent !important;
-  }
-
-  .hover-container {
-    position: relative;
-    z-index: 10;
-    overflow: visible;
-  }
-
-  .hover-container img {
-    transform-origin: center;
-    will-change: transform, opacity;
-    cursor: pointer;
-  }
-
-  /* Optional: Add subtle initial transform for depth */
-  .hover-container:not(:first-child) img {
-    transform: perspective(1000px) rotateY(-5deg);
-  }
-
-  .hover-container:not(:first-child):hover img {
-    transform: perspective(1000px) rotateY(0deg) scale(3);
-  }
-
-  /* Ensure content stays readable */
-  .prose {
-    position: relative;
-    z-index: 20;
-  }
-
-  /* Add hover effect to show content through images */
-  .hover-container:hover + p,
-  .hover-container:hover ~ p {
-    position: relative;
-    z-index: 40;
-  }
-</style>
-
 <script>
-  const vaultTrigger = document.getElementById('vaultTrigger');
-  const contentContainer = document.getElementById('contentContainer');
-  let isTransparent = false;
+// Get latest post data from server
+const latestPostData = {
+  slug: document.querySelector('body')?.getAttribute('data-latest-post-slug') || '',
+  title: document.querySelector('body')?.getAttribute('data-latest-post-title') || '',
+  description: document.querySelector('body')?.getAttribute('data-latest-post-description') || ''
+};
 
-  vaultTrigger?.addEventListener('click', () => {
-    isTransparent = !isTransparent;
-    if (isTransparent) {
-      contentContainer?.classList.remove('bg-white/95');
-      contentContainer?.classList.add('bg-transparent');
-    } else {
-      contentContainer?.classList.add('bg-white/95');
-      contentContainer?.classList.remove('bg-transparent');
+const navItems = document.querySelectorAll('.nav-item');
+const treeImages = document.querySelectorAll<HTMLImageElement>('.tree-image');
+const entranceContainer = document.querySelector('.tree-entrance-container') as HTMLElement;
+
+// Get popup elements
+const popup = document.getElementById('blogPopup') as HTMLElement;
+const popupTitle = document.getElementById('popupTitle') as HTMLElement;
+const popupDescription = document.getElementById('popupDescription') as HTMLElement;
+const readMoreBtn = document.getElementById('readMoreBtn') as HTMLElement;
+const closePopupBtn = document.getElementById('closePopupBtn') as HTMLElement;
+
+let currentPostSlug = '';
+
+const navData = [
+  { name: '2025 h4ckz', image: '/treeloop.jpg', secondaryImage: '/slaughterline.jpg', link: '/blog/sams-scams' },
+  { name: 'about us', image: '/treedetails.jpg', link: '/about' },
+  { name: 'projects', image: '/treeshine.jpg', link: '/projects' },
+  { name: 'defi simplified', image: '/treeloop.jpg', link: '/research' }
+];
+
+// Handle magical entrance animation
+const blackOverlay = document.querySelector('.tree-entrance-container > div') as HTMLElement;
+const entranceTrees = document.querySelectorAll<HTMLImageElement>('.tree-entrance');
+
+// Start the entrance sequence
+window.addEventListener('load', () => {
+  // Fade out black background
+  setTimeout(() => {
+    if (blackOverlay) {
+      blackOverlay.style.opacity = '0';
+    }
+    
+    // Trigger tree animations
+    entranceTrees.forEach((tree, index) => {
+      setTimeout(() => {
+        tree.style.opacity = '1';
+        tree.style.animation = `magicalEntrance${index + 1} 3s cubic-bezier(0.4, 0, 0.2, 1) forwards`;
+      }, index * 500); // Stagger the animations
+    });
+  }, 500); // Wait a bit before starting the sequence
+});
+
+// After animations complete
+entranceContainer?.addEventListener('animationend', (e) => {
+  if (e.target === entranceTrees[entranceTrees.length - 1]) {
+    entranceContainer.style.opacity = '1';
+    entranceContainer.style.transition = 'opacity 0.5s ease';
+  }
+});
+
+navItems.forEach(item => {
+  item.addEventListener('mouseenter', () => {
+    entranceContainer.style.setProperty('opacity', '0.8');
+    const section = item.textContent?.toLowerCase().trim();
+    const navItem = navData.find(nav => nav.name === section);
+    
+    treeImages.forEach(img => {
+      if (img.getAttribute('data-section') === section) {
+        img.classList.add('active');
+        
+        // Special handling for different sections
+        if (section === '2025 h4ckz') {
+          // Add slaughterline image
+          const slaughterlineImg = document.createElement('img');
+          slaughterlineImg.src = '/slaughterline.jpg';
+          slaughterlineImg.classList.add('slaughterline-image');
+          slaughterlineImg.style.cssText = `
+            position: absolute;
+            left: 25%;
+            top: 50%;
+            transform: translate(-50%, -50%) scale(0);
+            width: 300px;
+            height: 300px;
+            object-fit: cover;
+            border-radius: 50%;
+            opacity: 0;
+            transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+          `;
+          document.querySelector('.tree-container')?.appendChild(slaughterlineImg);
+          requestAnimationFrame(() => {
+            slaughterlineImg.style.transform = 'translate(-50%, -50%) scale(1)';
+            slaughterlineImg.style.opacity = '1';
+          });
+        } else if (section === 'projects') {
+          // Show project panel
+          const projectPanel = document.createElement('div');
+          projectPanel.classList.add('project-panel');
+          projectPanel.style.cssText = `
+            position: absolute;
+            right: 8rem;
+            top: 50%;
+            transform: translate(100%, -50%);
+            width: 300px;
+            background: rgba(0, 0, 0, 0.8);
+            backdrop-filter: blur(10px);
+            border-radius: 1rem;
+            padding: 1.5rem;
+            opacity: 0;
+            transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+            border: 1px solid rgba(52, 211, 153, 0.3);
+            box-shadow: 0 0 20px rgba(52, 211, 153, 0.2);
+          `;
+          
+          const projectLinks = [
+            { name: 'VTSC Coin', link: '/projects#vtsc' },
+            { name: 'Vault Network', link: '/projects#vault' },
+            { name: 'DeFi Tools', link: '/projects#defi' },
+            { name: 'Research Papers', link: '/projects#research' }
+          ];
+          
+          projectLinks.forEach(project => {
+            const link = document.createElement('a');
+            link.href = project.link;
+            link.textContent = project.name;
+            link.style.cssText = `
+              display: block;
+              color: #fff;
+              padding: 0.75rem;
+              margin-bottom: 0.5rem;
+              border-radius: 0.5rem;
+              background: rgba(52, 211, 153, 0.1);
+              transition: all 0.3s ease;
+              text-decoration: none;
+            `;
+            link.onmouseover = () => {
+              link.style.background = 'rgba(52, 211, 153, 0.2)';
+              link.style.transform = 'translateX(10px)';
+            };
+            link.onmouseout = () => {
+              link.style.background = 'rgba(52, 211, 153, 0.1)';
+              link.style.transform = 'translateX(0)';
+            };
+            projectPanel.appendChild(link);
+          });
+          
+          document.querySelector('.tree-container')?.appendChild(projectPanel);
+          requestAnimationFrame(() => {
+            projectPanel.style.transform = 'translate(0, -50%)';
+            projectPanel.style.opacity = '1';
+          });
+        }
+      } else {
+        img.classList.remove('active');
+      }
+    });
+  });
+
+  item.addEventListener('mouseleave', () => {
+    entranceContainer.style.setProperty('opacity', '1');
+    treeImages.forEach(img => img.classList.remove('active'));
+    // Remove any dynamic elements
+    const slaughterline = document.querySelector('.slaughterline-image') as HTMLElement;
+    const projectPanel = document.querySelector('.project-panel') as HTMLElement;
+    
+    if (slaughterline) {
+      slaughterline.style.transform = 'translate(-50%, -50%) scale(0)';
+      slaughterline.style.opacity = '0';
+      setTimeout(() => slaughterline.remove(), 500);
+    }
+    
+    if (projectPanel) {
+      projectPanel.style.transform = 'translate(100%, -50%)';
+      projectPanel.style.opacity = '0';
+      setTimeout(() => projectPanel.remove(), 500);
     }
   });
+
+  item.addEventListener('click', (e) => {
+    e.preventDefault();
+    const section = item.textContent?.toLowerCase().trim();
+    const navItem = navData.find(nav => nav.name === section);
+    if (navItem?.link) {
+      window.location.href = navItem.link;
+    }
+  });
+});
+
+// Popup event listeners
+closePopupBtn?.addEventListener('click', () => {
+  popup?.classList.add('hidden');
+});
+
+readMoreBtn?.addEventListener('click', () => {
+  if (currentPostSlug) {
+    window.location.href = `/blog/${currentPostSlug}`;
+  }
+});
+
+// Close popup when clicking outside
+popup?.addEventListener('click', (e) => {
+  if (e.target === popup) {
+    popup.classList.add('hidden');
+  }
+});
 </script>
