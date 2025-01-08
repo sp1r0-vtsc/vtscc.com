@@ -89,33 +89,36 @@
 /* Blog post container 3D effect */
 .blog-post-container {
   transform-style: preserve-3d;
-  perspective: 1000px;
+  perspective: 1500px;
   animation: blogPostEntrance 1.5s cubic-bezier(0.4, 0, 0.2, 1) 3s forwards;
   text-decoration: none;
-  border: 1px solid rgba(52, 211, 153, 0.3);
+  border: 1px solid rgba(52, 211, 153, 0.2);
   opacity: 0;
   z-index: 10;
-  background: rgba(0, 0, 0, 0.6);
+  background: rgba(0, 0, 0, 0.25);
   backdrop-filter: blur(8px);
+  box-shadow: 0 15px 35px rgba(0, 0, 0, 0.3);
+  transform: translateX(-20px) translateY(40px) rotateY(-15deg);
+  width: 320px;
 }
 
 @keyframes blogPostEntrance {
   0% {
-    transform: translateZ(-100px) rotateX(20deg) scale(0.9);
+    transform: translateZ(-100px) rotateX(20deg) translateY(0) scale(0.9);
     opacity: 0;
   }
   100% {
-    transform: translateZ(0) rotateX(0) scale(1);
-    opacity: 1;
+    transform: translateX(-20px) translateY(40px) rotateY(-15deg) scale(1);
+    opacity: 0.95;
   }
 }
 
 .blog-post-container:hover {
-  transform: translateZ(30px) rotateX(8deg) scale(1.02);
+  transform: translateX(-10px) translateY(35px) translateZ(50px) rotateY(-10deg) scale(1.02);
   transition: all 0.4s ease;
-  box-shadow: 0 0 40px rgba(52, 211, 153, 0.2);
+  box-shadow: 25px 25px 70px rgba(0, 0, 0, 0.4);
   border-color: rgba(52, 211, 153, 0.4);
-  background: rgba(0, 0, 0, 0.7);
+  background: rgba(0, 0, 0, 0.35);
 }
 
 @keyframes headerLogoSpin {
@@ -149,6 +152,8 @@
   width: 600px;
   height: 600px;
   border-radius: 50%;
+  left: 50%;
+  top: 50%;
   transform: translate(-50%, -50%);
   opacity: 0;
   transition: all 0.8s cubic-bezier(0.4, 0, 0.2, 1);
@@ -178,53 +183,137 @@
   background: rgba(0, 0, 0, 0.6);
 }
 
-/* Add styles for the side panel */
-.side-panel {
-  position: fixed;
-  top: 50%;
-  left: -300px;
-  transform: translateY(-50%);
-  width: 300px;
-  background: rgba(15, 23, 42, 0.95);
+/* Add styles for panels */
+.panel-base {
+  position: absolute;
+  z-index: 20;
+  background: rgba(0, 0, 0, 0.8);
   backdrop-filter: blur(10px);
-  border-right: 1px solid rgba(52, 211, 153, 0.2);
-  transition: transform 0.3s ease;
-  z-index: 50;
-  padding: 2rem;
-  border-radius: 0 1rem 1rem 0;
+  border-radius: 1rem;
+  padding: 1.5rem;
+  opacity: 0;
+  transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+  border: 1px solid rgba(52, 211, 153, 0.3);
+  box-shadow: 0 0 20px rgba(52, 211, 153, 0.2);
+  pointer-events: none;
 }
 
-.side-panel.active {
-  transform: translateY(-50%) translateX(300px);
+.panel-base.active {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.project-panel {
+  composes: panel-base;
+  right: 8rem;
+  top: 50%;
+  transform: translate(100%, -50%);
+}
+
+.project-panel.active {
+  transform: translate(0, -50%);
+}
+
+.h4ckz-panel {
+  composes: panel-base;
+  left: 8rem;
+  top: 50%;
+  transform: translate(-100%, -50%);
+}
+
+.h4ckz-panel.active {
+  transform: translate(0, -50%);
+}
+
+.panel-link {
+  display: block;
+  color: #fff;
+  padding: 0.75rem;
+  margin-bottom: 0.5rem;
+  border-radius: 0.5rem;
+  background: rgba(52, 211, 153, 0.1);
+  transition: all 0.3s ease;
+  text-decoration: none;
+}
+
+.panel-link:hover {
+  background: rgba(52, 211, 153, 0.2);
+  transform: translateX(10px);
 }
 
 /* Blog post container positioning */
 main {
-  margin-left: calc(50% - 36rem);
+  margin-left: 2rem;
   margin-right: auto;
   max-width: none;
   padding-right: 2rem;
 }
 
+/* DeFi flash animation */
+@keyframes defiFlash {
+  0% {
+    opacity: 0;
+    transform: scale(1.2);
+    filter: brightness(2);
+  }
+  50% {
+    opacity: 0.8;
+    transform: scale(1);
+    filter: brightness(1.5);
+  }
+  100% {
+    opacity: 0;
+    transform: scale(0.8);
+    filter: brightness(1);
+  }
+}
+
+.defi-flash {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  z-index: 25;
+  opacity: 0;
+  pointer-events: none;
+}
+
+.defi-flash.active {
+  animation: defiFlash 0.8s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+}
+
 /* Tree image transitions */
 .tree-image {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%) scale(0.95);
-  transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transform: scale(0.95);
+  transition: all 0.8s cubic-bezier(0.4, 0, 0.2, 1);
   opacity: 0;
+  z-index: 5;
 }
 
 .tree-image.active {
   opacity: 1;
-  transform: translate(-50%, -50%) scale(1);
+  transform: scale(1);
+}
+
+.tree-image.fullscreen {
+  opacity: 1;
+  transform: scale(1.05);
+  z-index: 15;
+  filter: brightness(1.2) contrast(1.1);
 }
 
 /* Position nav items in a circle */
 .nav-item:nth-child(1) { top: 20%; left: 50%; }
 .nav-item:nth-child(2) { top: 50%; left: 80%; }
-.nav-item:nth-child(3) { top: 80%; left: 50%; }
+.nav-item:nth-child(3) { top: 85%; left: 50%; }
 .nav-item:nth-child(4) { top: 50%; left: 20%; }
 
 /* Hover effects for nav sections */
@@ -252,4 +341,23 @@ main {
   background: rgba(0, 0, 0, 0.85);
   box-shadow: 0 0 25px rgba(52, 211, 153, 0.4);
   text-shadow: 0 0 15px rgba(255, 255, 255, 1);
+}
+
+/* Fullscreen overlay for clicked images */
+.fullscreen-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.8);
+  opacity: 0;
+  transition: opacity 0.5s ease;
+  z-index: 14;
+  pointer-events: none;
+}
+
+.fullscreen-overlay.active {
+  opacity: 1;
+  pointer-events: auto;
 }

@@ -14,8 +14,8 @@ const latestPost = posts[0];
 const navItems = [
   { name: '2025 H4CKZ', image: '/treeloop.jpg', secondaryImage: '/slaughterline.jpg', link: '/blog/sams-scams' },
   { name: 'About Us', image: '/treedetails.jpg', link: '/about' },
-  { name: 'Projects', image: '/treeshine.jpg', link: '/projects' },
-  { name: 'DeFi Simplified', image: '/treeloop.jpg', link: '/research' }
+  { name: 'Projects', image: '/hometree.jpg', link: '/projects' },
+  { name: 'DeFi Simplified', image: '/treedetails.jpg', link: '/research' }
 ];
 ---
 
@@ -75,7 +75,7 @@ const navItems = [
       </div>
 
       <!-- Latest Transmissions -->
-      <a href={`/blog/${latestPost.slug}`} class="absolute bottom-8 right-8 w-96 bg-black/30 backdrop-blur-sm rounded-lg blog-post-container group hover:bg-black/40 transition-all duration-300">
+      <a href={`/blog/${latestPost.slug}`} class="absolute top-12 left-8 rounded-lg blog-post-container group transition-all duration-300">
         <div class="p-6">
           <h2 class="text-lg font-bold text-emerald-100/90 mb-3 border-b border-emerald-500/30 pb-2 sharp-heading group-hover:text-emerald-100 group-hover:border-emerald-500/50">Latest Transmissions</h2>
           <div class="text-slate-300/90 group-hover:text-slate-300">
@@ -100,15 +100,67 @@ const navItems = [
         ))}
       </div>
 
+      <!-- Fullscreen overlay -->
+      <div class="fullscreen-overlay"></div>
+
+      <!-- DeFi Flash Effect -->
+      <img 
+        src="/treeshine.jpg"
+        alt="DeFi Flash"
+        class="defi-flash"
+        id="defiFlash"
+      />
+
       <!-- Tree images that appear on hover -->
       {navItems.map((item) => (
         <img 
           src={item.image}
           alt={`${item.name} Tree`}
-          class="tree-image w-[400px] h-[400px] object-cover rounded-full"
+          class="tree-image"
           data-section={item.name.toLowerCase()}
         />
       ))}
+
+      <!-- DeFi Content -->
+      <div id="defiContent" class="fixed inset-0 z-20 hidden">
+        <div class="absolute inset-0 bg-black/70 backdrop-blur-sm"></div>
+        <div class="relative z-30 max-w-4xl mx-auto mt-24 p-8 bg-slate-800/90 rounded-lg border border-amber-900/30 shadow-lg">
+          <h2 class="text-3xl font-bold mb-6 text-amber-200">Pioneering Simplicity in Web3</h2>
+          
+          <div class="space-y-6">
+            <div class="bg-slate-700/50 p-6 rounded-lg">
+              <h3 class="text-xl font-semibold mb-3 text-amber-100">Secure Computing Architecture</h3>
+              <p class="text-slate-300">
+                From cold storage solutions to multi-signature systems, we design and implement computing environments that prioritize security without sacrificing usability. Our experience with early cryptocurrency exchanges and payment processors has shaped our approach to building systems that stand the test of time.
+              </p>
+            </div>
+
+            <div class="bg-slate-700/50 p-6 rounded-lg">
+              <h3 class="text-xl font-semibold mb-3 text-amber-100">Blockchain & Digital Asset Security</h3>
+              <p class="text-slate-300">
+                We specialize in cryptocurrency wallet architecture, smart contract auditing, and secure key management protocols. Our team has been researching and implementing blockchain solutions since the early days of digital currency, giving us unique insight into both the technical and practical aspects of crypto security.
+              </p>
+            </div>
+
+            <div class="bg-slate-700/50 p-6 rounded-lg">
+              <h3 class="text-xl font-semibold mb-3 text-amber-100">Payment Systems Integration</h3>
+              <p class="text-slate-300">
+                We bridge the gap between traditional finance and DeFi, creating seamless payment interfaces that handle both fiat and cryptocurrency transactions. Our solutions abstract away complexity while maintaining institutional-grade security standards.
+              </p>
+            </div>
+          </div>
+
+          <button 
+            id="closeDefiBtn"
+            class="absolute top-4 right-4 text-amber-200 hover:text-amber-100 p-2"
+          >
+            <span class="sr-only">Close</span>
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+            </svg>
+          </button>
+        </div>
+      </div>
     </div>
   </main>
 </BaseLayout>
@@ -137,16 +189,19 @@ let currentPostSlug = '';
 const navData = [
   { name: '2025 h4ckz', image: '/treeloop.jpg', secondaryImage: '/slaughterline.jpg', link: '/blog/sams-scams' },
   { name: 'about us', image: '/treedetails.jpg', link: '/about' },
-  { name: 'projects', image: '/treeshine.jpg', link: '/projects' },
-  { name: 'defi simplified', image: '/treeloop.jpg', link: '/research' }
+  { name: 'projects', image: '/hometree.jpg', link: '/projects' },
+  { name: 'defi simplified', image: '/treedetails.jpg', link: '/research' }
 ];
 
 // Handle magical entrance animation
 const blackOverlay = document.querySelector('.tree-entrance-container > div') as HTMLElement;
-const entranceTrees = document.querySelectorAll<HTMLImageElement>('.tree-entrance');
+const entranceTrees: NodeListOf<HTMLImageElement> = document.querySelectorAll('.tree-entrance');
 
 // Start the entrance sequence
 window.addEventListener('load', () => {
+  // Add a class to start the sequence
+  document.body.classList.add('animation-start');
+  
   // Fade out black background
   setTimeout(() => {
     if (blackOverlay) {
@@ -158,17 +213,17 @@ window.addEventListener('load', () => {
       setTimeout(() => {
         tree.style.opacity = '1';
         tree.style.animation = `magicalEntrance${index + 1} 3s cubic-bezier(0.4, 0, 0.2, 1) forwards`;
-      }, index * 500); // Stagger the animations
+      }, index * 500);
     });
-  }, 500); // Wait a bit before starting the sequence
-});
 
-// After animations complete
-entranceContainer?.addEventListener('animationend', (e) => {
-  if (e.target === entranceTrees[entranceTrees.length - 1]) {
-    entranceContainer.style.opacity = '1';
-    entranceContainer.style.transition = 'opacity 0.5s ease';
-  }
+    // Set final state after all animations complete
+    setTimeout(() => {
+      if (entranceContainer) {
+        entranceContainer.style.opacity = '1';
+        entranceContainer.style.transition = 'opacity 0.5s ease';
+      }
+    }, 4500); // 3s animation + 1.5s stagger
+  }, 500);
 });
 
 navItems.forEach(item => {
@@ -183,46 +238,32 @@ navItems.forEach(item => {
         
         // Special handling for different sections
         if (section === '2025 h4ckz') {
-          // Add slaughterline image
-          const slaughterlineImg = document.createElement('img');
-          slaughterlineImg.src = '/slaughterline.jpg';
-          slaughterlineImg.classList.add('slaughterline-image');
-          slaughterlineImg.style.cssText = `
-            position: absolute;
-            left: 25%;
-            top: 50%;
-            transform: translate(-50%, -50%) scale(0);
-            width: 300px;
-            height: 300px;
-            object-fit: cover;
-            border-radius: 50%;
-            opacity: 0;
-            transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
-          `;
-          document.querySelector('.tree-container')?.appendChild(slaughterlineImg);
+          // Add H4CKZ panel
+          const h4ckzPanel = document.createElement('div');
+          h4ckzPanel.classList.add('h4ckz-panel', 'panel-base');
+          
+          const h4ckzLinks = [
+            { name: 'Latest Scam Alert', link: '/blog/sams-scams' },
+            { name: 'Research Papers', link: '/research' },
+            { name: 'Security Tools', link: '/projects#security' }
+          ];
+          
+          h4ckzLinks.forEach(link => {
+            const a = document.createElement('a');
+            a.href = link.link;
+            a.textContent = link.name;
+            a.classList.add('panel-link');
+            h4ckzPanel.appendChild(a);
+          });
+          
+          document.querySelector('.tree-container')?.appendChild(h4ckzPanel);
           requestAnimationFrame(() => {
-            slaughterlineImg.style.transform = 'translate(-50%, -50%) scale(1)';
-            slaughterlineImg.style.opacity = '1';
+            h4ckzPanel.classList.add('active');
           });
         } else if (section === 'projects') {
           // Show project panel
           const projectPanel = document.createElement('div');
-          projectPanel.classList.add('project-panel');
-          projectPanel.style.cssText = `
-            position: absolute;
-            right: 8rem;
-            top: 50%;
-            transform: translate(100%, -50%);
-            width: 300px;
-            background: rgba(0, 0, 0, 0.8);
-            backdrop-filter: blur(10px);
-            border-radius: 1rem;
-            padding: 1.5rem;
-            opacity: 0;
-            transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
-            border: 1px solid rgba(52, 211, 153, 0.3);
-            box-shadow: 0 0 20px rgba(52, 211, 153, 0.2);
-          `;
+          projectPanel.classList.add('project-panel', 'panel-base');
           
           const projectLinks = [
             { name: 'VTSC Coin', link: '/projects#vtsc' },
@@ -235,24 +276,7 @@ navItems.forEach(item => {
             const link = document.createElement('a');
             link.href = project.link;
             link.textContent = project.name;
-            link.style.cssText = `
-              display: block;
-              color: #fff;
-              padding: 0.75rem;
-              margin-bottom: 0.5rem;
-              border-radius: 0.5rem;
-              background: rgba(52, 211, 153, 0.1);
-              transition: all 0.3s ease;
-              text-decoration: none;
-            `;
-            link.onmouseover = () => {
-              link.style.background = 'rgba(52, 211, 153, 0.2)';
-              link.style.transform = 'translateX(10px)';
-            };
-            link.onmouseout = () => {
-              link.style.background = 'rgba(52, 211, 153, 0.1)';
-              link.style.transform = 'translateX(0)';
-            };
+            link.classList.add('panel-link');
             projectPanel.appendChild(link);
           });
           
@@ -271,31 +295,107 @@ navItems.forEach(item => {
   item.addEventListener('mouseleave', () => {
     entranceContainer.style.setProperty('opacity', '1');
     treeImages.forEach(img => img.classList.remove('active'));
-    // Remove any dynamic elements
-    const slaughterline = document.querySelector('.slaughterline-image') as HTMLElement;
-    const projectPanel = document.querySelector('.project-panel') as HTMLElement;
-    
-    if (slaughterline) {
-      slaughterline.style.transform = 'translate(-50%, -50%) scale(0)';
-      slaughterline.style.opacity = '0';
-      setTimeout(() => slaughterline.remove(), 500);
-    }
-    
-    if (projectPanel) {
-      projectPanel.style.transform = 'translate(100%, -50%)';
-      projectPanel.style.opacity = '0';
-      setTimeout(() => projectPanel.remove(), 500);
-    }
+    // Remove any panels
+    const panels = document.querySelectorAll('.panel-base');
+    panels.forEach(panel => {
+      (panel as HTMLElement).classList.remove('active');
+      setTimeout(() => panel.remove(), 500);
+    });
   });
+
+  let activePanel: HTMLElement | null = null;
+  let isFullscreen = false;
 
   item.addEventListener('click', (e) => {
     e.preventDefault();
     const section = item.textContent?.toLowerCase().trim();
-    const navItem = navData.find(nav => nav.name === section);
-    if (navItem?.link) {
-      window.location.href = navItem.link;
+    
+    // Find the corresponding tree image and panel
+    const treeImage = Array.from(treeImages).find(img => 
+      img.getAttribute('data-section') === section
+    );
+
+    // Handle DeFi section click
+    if (section === 'defi simplified') {
+      const defiFlash = document.getElementById('defiFlash');
+      const defiContent = document.getElementById('defiContent');
+      
+      if (defiFlash && defiContent) {
+        defiFlash.classList.add('active');
+        setTimeout(() => {
+          defiContent.classList.remove('hidden');
+          defiFlash.classList.remove('active');
+        }, 800);
+      }
+      return;
+    }
+    
+    const panel = document.querySelector(
+      section === 'projects' ? '.project-panel' : 
+      section === '2025 h4ckz' ? '.h4ckz-panel' : 
+      null
+    );
+    
+    if (treeImage) {
+      if (!isFullscreen) {
+        // Toggle panel if exists
+        if (panel) {
+          if (activePanel === panel) {
+            panel.classList.remove('active');
+            activePanel = null;
+          } else {
+            if (activePanel) activePanel.classList.remove('active');
+            panel.classList.add('active');
+            activePanel = panel;
+          }
+        }
+        
+        // Toggle fullscreen
+        treeImage.classList.add('fullscreen');
+        document.querySelector('.fullscreen-overlay')?.classList.add('active');
+        isFullscreen = true;
+        
+        // Disable navigation except current item
+        navItems.forEach(nav => {
+          if (nav !== item) {
+            (nav as HTMLElement).style.pointerEvents = 'none';
+          }
+        });
+      } else {
+        // Exit fullscreen
+        treeImage.classList.remove('fullscreen');
+        document.querySelector('.fullscreen-overlay')?.classList.remove('active');
+        isFullscreen = false;
+        
+        // Re-enable navigation
+        navItems.forEach(nav => {
+          (nav as HTMLElement).style.pointerEvents = 'auto';
+        });
+        
+        // Keep panel active
+        if (panel && panel === activePanel) {
+          panel.classList.add('active');
+        }
+      }
     }
   });
+});
+
+// Close DeFi content when clicking close button
+document.getElementById('closeDefiBtn')?.addEventListener('click', () => {
+  const defiContent = document.getElementById('defiContent');
+  if (defiContent) {
+    defiContent.classList.add('hidden');
+  }
+});
+
+// Close DeFi content when clicking outside
+document.getElementById('defiContent')?.addEventListener('click', (e) => {
+  const target = e.target as HTMLElement;
+  const currentTarget = e.currentTarget as HTMLElement;
+  if (target === currentTarget) {
+    currentTarget.classList.add('hidden');
+  }
 });
 
 // Popup event listeners
