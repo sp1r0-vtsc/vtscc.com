@@ -15,7 +15,7 @@ const navItems = [
   { name: '2025 H4CKZ', image: '/treeloop.jpg', secondaryImage: '/slaughterline.jpg', link: '/blog/sams-scams' },
   { name: 'About Us', image: '/treedetails.jpg', link: '/about' },
   { name: 'Projects', image: '/hometree.jpg', link: '/projects' },
-  { name: 'DeFi Simplified', image: '/treedetails.jpg', link: '/research' }
+  { name: 'DeFi Simplified', image: '/vtsc-background.jpg', link: '/research' }
 ];
 ---
 
@@ -168,14 +168,23 @@ const navItems = [
 <script>
 // Get latest post data from server
 const latestPostData = {
-  slug: document.querySelector('body')?.getAttribute('data-latest-post-slug') || '',
-  title: document.querySelector('body')?.getAttribute('data-latest-post-title') || '',
-  description: document.querySelector('body')?.getAttribute('data-latest-post-description') || ''
+  slug: document.querySelector('[data-latest-post-slug]')?.getAttribute('data-latest-post-slug') || '',
+  title: document.querySelector('[data-latest-post-title]')?.getAttribute('data-latest-post-title') || '',
+  description: document.querySelector('[data-latest-post-description]')?.getAttribute('data-latest-post-description') || ''
 };
 
-const navItems = document.querySelectorAll('.nav-item');
-const treeImages = document.querySelectorAll<HTMLImageElement>('.tree-image');
-const entranceContainer = document.querySelector('.tree-entrance-container') as HTMLElement;
+// Type declarations
+type NavItem = {
+  name: string;
+  image: string;
+  secondaryImage?: string;
+  link: string;
+};
+
+// DOM element selections with proper typing
+const navItems: NodeListOf<HTMLAnchorElement> = document.querySelectorAll('.nav-item');
+const treeImages: NodeListOf<HTMLImageElement> = document.querySelectorAll('.tree-image');
+const entranceContainer: HTMLElement | null = document.querySelector('.tree-entrance-container');
 
 // Get popup elements
 const popup = document.getElementById('blogPopup') as HTMLElement;
@@ -186,7 +195,7 @@ const closePopupBtn = document.getElementById('closePopupBtn') as HTMLElement;
 
 let currentPostSlug = '';
 
-const navData = [
+const navData: NavItem[] = [
   { name: '2025 h4ckz', image: '/treeloop.jpg', secondaryImage: '/slaughterline.jpg', link: '/blog/sams-scams' },
   { name: 'about us', image: '/treedetails.jpg', link: '/about' },
   { name: 'projects', image: '/hometree.jpg', link: '/projects' },
@@ -195,7 +204,11 @@ const navData = [
 
 // Handle magical entrance animation
 const blackOverlay = document.querySelector('.tree-entrance-container > div') as HTMLElement;
-const entranceTrees: NodeListOf<HTMLImageElement> = document.querySelectorAll('.tree-entrance');
+const entranceTreeElements = document.querySelectorAll('.tree-entrance') as NodeListOf<Element>;
+const entranceTrees = Array.from(entranceTreeElements).filter((el): el is HTMLImageElement => el instanceof HTMLImageElement);
+
+// Store reference to Projects hover handler
+let projectsHoverHandler: (() => void) | null = null;
 
 // Start the entrance sequence
 window.addEventListener('load', () => {
@@ -226,8 +239,10 @@ window.addEventListener('load', () => {
   }, 500);
 });
 
+// Setup navigation interactions
 navItems.forEach(item => {
-  item.addEventListener('mouseenter', () => {
+  const handleMouseEnter = () => {
+    if (!entranceContainer) return;
     entranceContainer.style.setProperty('opacity', '0.8');
     const section = item.textContent?.toLowerCase().trim();
     const navItem = navData.find(nav => nav.name === section);
@@ -290,9 +305,17 @@ navItems.forEach(item => {
         img.classList.remove('active');
       }
     });
-  });
-
+  };
+  
+  // Store handler if this is the Projects item
+  if (item.textContent?.toLowerCase().trim() === 'projects') {
+    projectsHoverHandler = handleMouseEnter;
+  }
+  
+  item.addEventListener('mouseenter', handleMouseEnter);
+  
   item.addEventListener('mouseleave', () => {
+    if (!entranceContainer) return;
     entranceContainer.style.setProperty('opacity', '1');
     treeImages.forEach(img => img.classList.remove('active'));
     // Remove any panels
@@ -317,16 +340,30 @@ navItems.forEach(item => {
 
     // Handle DeFi section click
     if (section === 'defi simplified') {
-      const defiFlash = document.getElementById('defiFlash');
-      const defiContent = document.getElementById('defiContent');
+      // Create DeFi panel
+      const defiPanel = document.createElement('div');
+      defiPanel.classList.add('defi-panel', 'panel-base');
       
-      if (defiFlash && defiContent) {
-        defiFlash.classList.add('active');
-        setTimeout(() => {
-          defiContent.classList.remove('hidden');
-          defiFlash.classList.remove('active');
-        }, 800);
-      }
+      const defiLinks = [
+        { name: 'Wallets', link: '/research#wallets' },
+        { name: 'Widgets', link: '/research#widgets' },
+        { name: 'Analysis', link: '/research#analysis' },
+        { name: 'Tools', link: '/research#tools' }
+      ];
+      
+      defiLinks.forEach(link => {
+        const a = document.createElement('a');
+        a.href = link.link;
+        a.textContent = link.name;
+        a.classList.add('panel-link');
+        defiPanel.appendChild(a);
+      });
+      
+      document.querySelector('.tree-container')?.appendChild(defiPanel);
+      requestAnimationFrame(() => {
+        defiPanel.style.transform = 'translate(0, -50%)';
+        defiPanel.style.opacity = '1';
+      });
       return;
     }
     
@@ -380,6 +417,13 @@ navItems.forEach(item => {
     }
   });
 });
+
+// Trigger Projects hover by default after animations
+setTimeout(() => {
+  if (projectsHoverHandler) {
+    projectsHoverHandler();
+  }
+}, 4000);
 
 // Close DeFi content when clicking close button
 document.getElementById('closeDefiBtn')?.addEventListener('click', () => {

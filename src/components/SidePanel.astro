@@ -72,7 +72,7 @@ const projects = [
 
 		// Close panel when clicking outside
 		document.addEventListener('click', (e) => {
-			if (!panel.contains(e.target) && panel.classList.contains('active')) {
+			if (!panel.contains(e.target as Node) && panel.classList.contains('active')) {
 				panel.classList.remove('active');
 			}
 		});
