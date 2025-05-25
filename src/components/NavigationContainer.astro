@@ -47,7 +47,7 @@ const containerClasses = [
     box-shadow: 0 0 20px rgba(52, 211, 153, 0.2);
     transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
     pointer-events: none;
-    min-width: 250px;
+    min-width: var(--nav-min-width, 250px);
   }
 
   .nav-container.active {
@@ -72,6 +72,10 @@ const containerClasses = [
   .nav-container-defi {
     --submenu-y: calc(50% + 8rem);
     --submenu-x: -50%;
+  }
+
+  .mode-submenu {
+    --nav-min-width: auto;
   }
 
   /* Mode-specific styles */

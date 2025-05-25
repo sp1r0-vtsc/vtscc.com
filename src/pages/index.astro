@@ -75,15 +75,17 @@ const navItems = [
       </div>
 
       <!-- Latest Transmissions -->
-      <a href={`/blog/${latestPost.slug}`} class="absolute top-12 left-8 rounded-lg blog-post-container group transition-all duration-300">
-        <div class="p-6">
-          <h2 class="text-lg font-bold text-emerald-100/90 mb-3 border-b border-emerald-500/30 pb-2 sharp-heading group-hover:text-emerald-100 group-hover:border-emerald-500/50">Latest Transmissions</h2>
-          <div class="text-slate-300/90 group-hover:text-slate-300">
-            <img src={latestPost.data.heroImage} alt={latestPost.data.title} class="w-full h-40 object-cover rounded mb-3"/>
-            <h3 class="text-md text-emerald-200/90 mb-2 group-hover:text-emerald-200">{latestPost.data.title}</h3>
-          </div>
+      <a href={`/blog/${latestPost.slug}`} class="absolute top-12 left-8 rounded-lg blog-post-container group transition-all duration-300 max-w-[250px]">
+        <div class="p-2">
+          <h2 class="text-sm font-bold text-emerald-100/90 mb-1 sharp-heading group-hover:text-emerald-100">Latest Transmission</h2>
+          <h3 class="text-sm text-emerald-200/90 group-hover:text-emerald-200">{latestPost.data.title}</h3>
         </div>
       </a>
+
+      <!-- Twitter Video -->
+      <div class="absolute top-32 left-8 max-w-[250px]">
+        <blockquote class="twitter-tweet" data-media-max-width="560"><p lang="en" dir="ltr">3. Merging legs, dogs and wheels into one robots turns it into a mutant from x-men movies, next step in body evolution<a href="https://t.co/CqXL3Dl1hC">pic.twitter.com/CqXL3Dl1hC</a></p>&mdash; John Rush (@johnrushx) <a href="https://twitter.com/johnrushx/status/1888784998804885713?ref_src=twsrc%5Etfw">February 10, 2025</a></blockquote> <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
+      </div>
       
       <!-- Circular Navigation -->
       <div class="nav-circle">
@@ -164,6 +166,50 @@ const navItems = [
     </div>
   </main>
 </BaseLayout>
+
+<style>
+  .panel-link-container {
+    position: relative;
+    margin-bottom: 0.5rem;
+  }
+
+  .panel-link {
+    display: block;
+    padding: 0.75rem 1rem;
+    background: rgba(52, 211, 153, 0.1);
+    border-radius: 0.5rem;
+    text-decoration: none;
+    color: #fff;
+    transition: all 0.2s ease;
+  }
+
+  .panel-link:hover {
+    background: rgba(52, 211, 153, 0.2);
+    transform: translateX(5px);
+  }
+
+  .panel-link-description {
+    position: absolute;
+    left: calc(100% + 1rem);
+    top: 50%;
+    transform: translateY(-50%);
+    background: rgba(0, 0, 0, 0.8);
+    border: 1px solid rgba(52, 211, 153, 0.3);
+    padding: 0.75rem 1rem;
+    border-radius: 0.5rem;
+    color: rgba(255, 255, 255, 0.9);
+    font-size: 0.875rem;
+    width: 250px;
+    opacity: 0;
+    pointer-events: none;
+    transition: all 0.2s ease;
+  }
+
+  .panel-link-container:hover .panel-link-description {
+    opacity: 1;
+    transform: translateY(-50%) translateX(5px);
+  }
+</style>
 
 <script>
 // Get latest post data from server
@@ -281,18 +327,28 @@ navItems.forEach(item => {
           projectPanel.classList.add('project-panel', 'panel-base');
           
           const projectLinks = [
-            { name: 'VTSC Coin', link: '/projects#vtsc' },
-            { name: 'Vault Network', link: '/projects#vault' },
-            { name: 'DeFi Tools', link: '/projects#defi' },
-            { name: 'Research Papers', link: '/projects#research' }
+            { name: 'DogPay', link: '/projects#dogpay', description: '' },
+            { name: 'Valswappa', link: '/projects#valswappa', description: '' },
+            { name: 'Woodcoin.org', link: '/projects#woodcoin', description: '' },
+            { name: 'WLog Network', link: '/projects#wlog', description: '' }
           ];
           
           projectLinks.forEach(project => {
+            const linkContainer = document.createElement('div');
+            linkContainer.classList.add('panel-link-container');
+            
             const link = document.createElement('a');
             link.href = project.link;
             link.textContent = project.name;
             link.classList.add('panel-link');
-            projectPanel.appendChild(link);
+            
+            const description = document.createElement('div');
+            description.textContent = project.description;
+            description.classList.add('panel-link-description');
+            
+            linkContainer.appendChild(link);
+            linkContainer.appendChild(description);
+            projectPanel.appendChild(linkContainer);
           });
           
           document.querySelector('.tree-container')?.appendChild(projectPanel);
@@ -314,33 +370,20 @@ navItems.forEach(item => {
   
   item.addEventListener('mouseenter', handleMouseEnter);
   
+  // Only remove tree image effect on mouseleave, keep panels
   item.addEventListener('mouseleave', () => {
     if (!entranceContainer) return;
     entranceContainer.style.setProperty('opacity', '1');
     treeImages.forEach(img => img.classList.remove('active'));
-    // Remove any panels
-    const panels = document.querySelectorAll('.panel-base');
-    panels.forEach(panel => {
-      (panel as HTMLElement).classList.remove('active');
-      setTimeout(() => panel.remove(), 500);
-    });
   });
 
-  let activePanel: HTMLElement | null = null;
-  let isFullscreen = false;
-
+  // Handle click events for panels and fullscreen
   item.addEventListener('click', (e) => {
     e.preventDefault();
     const section = item.textContent?.toLowerCase().trim();
     
-    // Find the corresponding tree image and panel
-    const treeImage = Array.from(treeImages).find(img => 
-      img.getAttribute('data-section') === section
-    );
-
-    // Handle DeFi section click
+    // Handle DeFi section
     if (section === 'defi simplified') {
-      // Create DeFi panel
       const defiPanel = document.createElement('div');
       defiPanel.classList.add('defi-panel', 'panel-base');
       
@@ -359,61 +402,38 @@ navItems.forEach(item => {
         defiPanel.appendChild(a);
       });
       
+      // Remove any existing DeFi panels
+      document.querySelectorAll('.defi-panel').forEach(panel => panel.remove());
+      
       document.querySelector('.tree-container')?.appendChild(defiPanel);
       requestAnimationFrame(() => {
-        defiPanel.style.transform = 'translate(0, -50%)';
-        defiPanel.style.opacity = '1';
+        defiPanel.classList.add('active');
       });
       return;
     }
     
-    const panel = document.querySelector(
-      section === 'projects' ? '.project-panel' : 
-      section === '2025 h4ckz' ? '.h4ckz-panel' : 
-      null
+    // Handle other sections
+    const panel = document.querySelector(`.${section}-panel`);
+    const treeImage = Array.from(treeImages).find(img => 
+      img.getAttribute('data-section') === section
     );
     
+    if (panel) {
+      // Toggle panel visibility
+      panel.classList.toggle('active');
+    }
+    
     if (treeImage) {
-      if (!isFullscreen) {
-        // Toggle panel if exists
-        if (panel) {
-          if (activePanel === panel) {
-            panel.classList.remove('active');
-            activePanel = null;
-          } else {
-            if (activePanel) activePanel.classList.remove('active');
-            panel.classList.add('active');
-            activePanel = panel;
-          }
+      // Toggle fullscreen mode
+      treeImage.classList.toggle('fullscreen');
+      document.querySelector('.fullscreen-overlay')?.classList.toggle('active');
+      
+      // Toggle navigation interactivity
+      navItems.forEach(nav => {
+        if (nav !== item) {
+          (nav as HTMLElement).style.pointerEvents = treeImage.classList.contains('fullscreen') ? 'none' : 'auto';
         }
-        
-        // Toggle fullscreen
-        treeImage.classList.add('fullscreen');
-        document.querySelector('.fullscreen-overlay')?.classList.add('active');
-        isFullscreen = true;
-        
-        // Disable navigation except current item
-        navItems.forEach(nav => {
-          if (nav !== item) {
-            (nav as HTMLElement).style.pointerEvents = 'none';
-          }
-        });
-      } else {
-        // Exit fullscreen
-        treeImage.classList.remove('fullscreen');
-        document.querySelector('.fullscreen-overlay')?.classList.remove('active');
-        isFullscreen = false;
-        
-        // Re-enable navigation
-        navItems.forEach(nav => {
-          (nav as HTMLElement).style.pointerEvents = 'auto';
-        });
-        
-        // Keep panel active
-        if (panel && panel === activePanel) {
-          panel.classList.add('active');
-        }
-      }
+      });
     }
   });
 });

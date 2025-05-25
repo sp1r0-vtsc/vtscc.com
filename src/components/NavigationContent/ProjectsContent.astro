@@ -5,28 +5,44 @@ interface Props {
 
 const { mode } = Astro.props;
 
-const links = [
-  { name: 'VTSC Coin', href: '/projects#vtsc', description: 'Our revolutionary cryptocurrency project' },
-  { name: 'Vault Network', href: '/projects#vault', description: 'Secure storage solutions for digital assets' },
-  { name: 'DeFi Tools', href: '/projects#defi', description: 'Tools for decentralized finance' },
-  { name: 'Research Papers', href: '/projects#research', description: 'Academic contributions to blockchain security' }
+const projectLinks = [
+  { name: 'Dogpay', href: '/projects#dogpay', description: 'Revolutionary payment system' },
+  { name: 'Valswappa', href: '/projects#valswappa', description: 'Decentralized exchange platform' },
+  { name: 'Woodcoin', href: '/projects#woodcoin', description: 'Sustainable cryptocurrency' },
+  { name: 'WLog Network', href: '/projects#wlog', description: 'Advanced blockchain logging system' }
 ];
 ---
 
 <div class={`projects-content mode-${mode}`}>
   {mode === 'submenu' ? (
-    <div class="submenu-grid">
-      {links.map(link => (
-        <a href={link.href} class="nav-link">
-          <span class="link-text">{link.name}</span>
-        </a>
-      ))}
+    <div class="tree-menu">
+      <div class="tree-trunk">
+        <div class="trunk-rings"></div>
+        <span class="trunk-text">Projects</span>
+      </div>
+      <div class="branches-container">
+        {projectLinks.map((link, index) => (
+          <div class="branch-wrapper" style={`--index: ${index}; --total: ${projectLinks.length};`}>
+            <div class="branch-line"></div>
+            <a 
+              href={link.href} 
+              class="project-node" 
+              data-description={link.description}
+            >
+              <div class="node-content">
+                <span class="node-text">{link.name}</span>
+              </div>
+              <div class="node-particles"></div>
+            </a>
+          </div>
+        ))}
+      </div>
     </div>
   ) : (
     <div class="page-grid">
       <h2 class="section-title">Projects</h2>
       <div class="projects-layout">
-        {links.map(link => (
+        {projectLinks.map(link => (
           <a href={link.href} class="nav-link-expanded">
             <h3 class="link-title">{link.name}</h3>
             <p class="link-description">{link.description}</p>
@@ -42,44 +58,208 @@ const links = [
     color: #fff;
   }
 
-  .submenu-grid {
-    display: grid;
-    gap: 0.75rem;
+  .tree-menu {
+    position: relative;
+    width: 400px;
+    height: 400px;
+    margin: -3rem;
+    z-index: 100;
   }
 
-  .page-grid {
-    display: grid;
-    gap: 2rem;
+  .tree-trunk {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 100px;
+    height: 100px;
+    background: radial-gradient(circle at center, rgba(52, 211, 153, 0.3), rgba(52, 211, 153, 0.1));
+    border: 2px solid rgba(52, 211, 153, 0.4);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 20;
+    animation: trunkPulse 3s ease-in-out infinite;
   }
 
-  .projects-layout {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-    gap: 1.5rem;
+  .trunk-rings {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
+    background: 
+      repeating-radial-gradient(
+        circle at center,
+        transparent 0,
+        transparent 10px,
+        rgba(52, 211, 153, 0.1) 10px,
+        rgba(52, 211, 153, 0.1) 12px
+      );
+    animation: ringsRotate 20s linear infinite;
   }
 
-  .section-title {
-    font-size: 2rem;
-    font-weight: bold;
-    color: rgb(52, 211, 153);
-    margin-bottom: 1rem;
-    text-shadow: 0 0 15px rgba(52, 211, 153, 0.5);
-    grid-column: 1 / -1;
+  .trunk-text {
+    color: rgba(255, 255, 255, 0.9);
+    font-size: 1.2rem;
+    font-weight: 600;
+    z-index: 2;
+    text-shadow: 0 0 10px rgba(52, 211, 153, 0.5);
   }
 
-  .nav-link {
-    display: block;
-    padding: 0.75rem 1rem;
-    background: rgba(52, 211, 153, 0.1);
-    border-radius: 0.5rem;
+  .branches-container {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+  }
+
+  .branch-wrapper {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 200px;
+    height: 2px;
+    transform-origin: left center;
+    transform: rotate(calc(360deg / var(--total) * var(--index)));
+  }
+
+  .branch-line {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, rgba(52, 211, 153, 0.4), rgba(52, 211, 153, 0.1));
+    transform-origin: left center;
+    animation: branchGrow 0.5s ease-out backwards;
+    animation-delay: calc(var(--index) * 0.1s);
+  }
+
+  .project-node {
+    position: absolute;
+    right: -40px;
+    top: -40px;
+    width: 80px;
+    height: 80px;
+    background: rgba(52, 211, 153, 0.15);
+    border: 2px solid rgba(52, 211, 153, 0.3);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
     text-decoration: none;
     color: inherit;
+    transform: rotate(calc(-360deg / var(--total) * var(--index)));
     transition: all 0.3s ease;
+    animation: nodeAppear 0.5s ease-out backwards;
+    animation-delay: calc(0.5s + var(--index) * 0.1s);
   }
 
-  .nav-link:hover {
-    background: rgba(52, 211, 153, 0.2);
-    transform: translateX(10px);
+  .node-content {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 2;
+  }
+
+  .node-text {
+    font-size: 0.85rem;
+    font-weight: 500;
+    text-align: center;
+    padding: 0.5rem;
+  }
+
+  .node-particles {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
+    pointer-events: none;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+  }
+
+  .project-node:hover {
+    background: rgba(52, 211, 153, 0.25);
+    border-color: rgba(52, 211, 153, 0.5);
+    transform: rotate(calc(-360deg / var(--total) * var(--index))) scale(1.1);
+    box-shadow: 
+      0 0 20px rgba(52, 211, 153, 0.3),
+      0 0 40px rgba(52, 211, 153, 0.1);
+  }
+
+  .project-node:hover .node-particles {
+    opacity: 1;
+    animation: particleFlow 2s linear infinite;
+  }
+
+  .project-node:hover::before {
+    content: attr(data-description);
+    position: absolute;
+    top: 120%;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 150px;
+    padding: 0.5rem;
+    background: rgba(0, 0, 0, 0.8);
+    border: 1px solid rgba(52, 211, 153, 0.3);
+    border-radius: 0.5rem;
+    font-size: 0.8rem;
+    text-align: center;
+    z-index: 30;
+  }
+
+  @keyframes trunkPulse {
+    0%, 100% { transform: translate(-50%, -50%) scale(1); }
+    50% { transform: translate(-50%, -50%) scale(1.05); }
+  }
+
+  @keyframes ringsRotate {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+  }
+
+  @keyframes branchGrow {
+    0% { transform: scaleX(0); }
+    100% { transform: scaleX(1); }
+  }
+
+  @keyframes nodeAppear {
+    0% { 
+      transform: rotate(calc(-360deg / var(--total) * var(--index))) scale(0);
+      opacity: 0;
+    }
+    100% { 
+      transform: rotate(calc(-360deg / var(--total) * var(--index))) scale(1);
+      opacity: 1;
+    }
+  }
+
+  @keyframes particleFlow {
+    0% {
+      background: radial-gradient(
+        circle at center,
+        rgba(52, 211, 153, 0.2) 0%,
+        transparent 70%
+      );
+    }
+    50% {
+      background: radial-gradient(
+        circle at center,
+        rgba(52, 211, 153, 0.1) 30%,
+        transparent 100%
+      );
+    }
+    100% {
+      background: radial-gradient(
+        circle at center,
+        rgba(52, 211, 153, 0.2) 0%,
+        transparent 70%
+      );
+    }
   }
 
   .nav-link-expanded {

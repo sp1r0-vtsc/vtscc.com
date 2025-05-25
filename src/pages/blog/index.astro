@@ -33,16 +33,16 @@ const posts = (await getCollection('blog')).sort(
       <section>
         <ul class="grid gap-8">
           {posts.map((post) => (
-            <li class="bg-slate-800/80 backdrop-blur-sm shadow-lg rounded-lg overflow-hidden hover:shadow-emerald-500/20 hover:scale-[1.02] transition-all duration-300 border border-emerald-900/30">
-              <a href={`/blog/${post.slug}/`}>
+            <li class="max-w-[40%] mx-auto bg-slate-800/80 backdrop-blur-sm shadow-lg rounded-lg overflow-hidden hover:shadow-emerald-500/20 hover:scale-[1.02] transition-all duration-300 border border-emerald-900/30">
+              <a href={`/blog/${post.slug}/`} class="flex">
                 {post.data.heroImage && (
                   <img 
                     src={post.data.heroImage} 
                     alt="" 
-                    class="w-full h-48 object-cover"
+                    class="w-48 h-48 object-cover flex-shrink-0"
                   />
                 )}
-                <div class="p-6">
+                <div class="p-6 flex-grow">
                   <h2 class="text-2xl font-bold mb-2 text-emerald-100">{post.data.title}</h2>
                   <p class="text-slate-300 mb-4">{post.data.description}</p>
                   <div class="text-sm text-emerald-200/70">
